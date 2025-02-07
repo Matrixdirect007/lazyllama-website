@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
       // Remove 'active' class from all nav links
       document.querySelectorAll('.nav-links li a').forEach(navLink => navLink.classList.remove('active'));
-      const target = this.getAttribute('href'); // e.g. "#more", "#nap-to-earn", etc.
+      const target = this.getAttribute('href');
       const targetSection = document.querySelector(target);
       if (targetSection) {
         targetSection.classList.add('active');
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof window.ethereum !== 'undefined') {
       try {
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        console.log("Connected account:", accounts[0]); // For debugging only
+        console.log("Connected account:", accounts[0]);
         alert("Wallet connected successfully!");
         walletConnected = true;
         const donationSection = document.getElementById('donationSection');
@@ -151,64 +151,64 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-// Donation Integration: Use custom donation input if provided, else use preset radio buttons
-const donateButton = document.getElementById('donateButton');
-if (donateButton) {
-  donateButton.addEventListener('click', async () => {
-    if (!walletConnected) {
-      alert("Please connect your wallet first.");
-      return;
-    }
-
-    // Check if ethers.js is available
-    if (typeof ethers === 'undefined') {
-      alert("Ethers.js library is not loaded. Please check your network connection and script inclusion.");
-      return;
-    }
-
-    // Get donation amount from custom input
-    let donationAmountEth = parseFloat(document.getElementById('customDonation')?.value) || null;
-    // If no custom donation provided, check preset radio buttons
-    if (!donationAmountEth) {
-      const donationRadios = document.getElementsByName('donationAmount');
-      Array.from(donationRadios).forEach(radio => {
-        if (radio.checked) donationAmountEth = parseFloat(radio.value);
-      });
-    }
-    if (!donationAmountEth || donationAmountEth <= 0) {
-      alert("Please enter a valid donation amount in ETH.");
-      return;
-    }
-    try {
-      // Convert ETH to Wei using ethers.js
-      const donationAmountWei = ethers.utils.parseEther(donationAmountEth.toString());
-      
-      // Use the donation address provided:
-      const donationAddress = "0xc0C2196bBa2ac923564DBa39eb61A170d66620b1";
-      if (!donationAddress) {
-        alert("Failed to resolve donation address. Please try again later.");
+  // Donation Integration: Use custom donation input if provided, else use preset radio buttons
+  const donateButton = document.getElementById('donateButton');
+  if (donateButton) {
+    donateButton.addEventListener('click', async () => {
+      if (!walletConnected) {
+        alert("Please connect your wallet first.");
         return;
       }
-      
-      const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-      const fromAddress = accounts[0];
-      const txParams = {
-        from: fromAddress,
-        to: donationAddress,
-        value: donationAmountWei.toHexString(), // Convert to hex string for MetaMask
-        gas: ethers.utils.hexlify(21000) // Convert gas limit to a hex string
-      };
-      const txHash = await window.ethereum.request({
-        method: 'eth_sendTransaction',
-        params: [txParams],
-      });
-      alert(`Donation successful! Your ${donationAmountEth} ETH donation is fueling the nap revolution. Transaction hash: ${txHash}`);
-    } catch (error) {
-      console.error(error);
-      alert("Donation failed: " + error.message);
-    }
-  });
-}
+
+      // Check if ethers.js is available
+      if (typeof ethers === 'undefined') {
+        alert("Ethers.js library is not loaded. Please check your network connection and script inclusion.");
+        return;
+      }
+
+      // Get donation amount from custom input
+      let donationAmountEth = parseFloat(document.getElementById('customDonation')?.value) || null;
+      // If no custom donation provided, check preset radio buttons
+      if (!donationAmountEth) {
+        const donationRadios = document.getElementsByName('donationAmount');
+        Array.from(donationRadios).forEach(radio => {
+          if (radio.checked) donationAmountEth = parseFloat(radio.value);
+        });
+      }
+      if (!donationAmountEth || donationAmountEth <= 0) {
+        alert("Please enter a valid donation amount in ETH.");
+        return;
+      }
+      try {
+        // Convert ETH to Wei using ethers.js
+        const donationAmountWei = ethers.utils.parseEther(donationAmountEth.toString());
+        
+        // Use the donation address provided:
+        const donationAddress = "0xc0C2196bBa2ac923564DBa39eb61A170d66620b1";
+        if (!donationAddress) {
+          alert("Failed to resolve donation address. Please try again later.");
+          return;
+        }
+        
+        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+        const fromAddress = accounts[0];
+        const txParams = {
+          from: fromAddress,
+          to: donationAddress,
+          value: donationAmountWei.toHexString(), // Convert to hex string for MetaMask
+          gas: ethers.utils.hexlify(21000) // Convert gas limit to a hex string
+        };
+        const txHash = await window.ethereum.request({
+          method: 'eth_sendTransaction',
+          params: [txParams],
+        });
+        alert(`Donation successful! Your ${donationAmountEth} ETH donation is fueling the nap revolution. Transaction hash: ${txHash}`);
+      } catch (error) {
+        console.error(error);
+        alert("Donation failed: " + error.message);
+      }
+    });
+  }
 
   // Contact Form: Build a mailto link on submit
   const contactForm = document.getElementById('contactForm');

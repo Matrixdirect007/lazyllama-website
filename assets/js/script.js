@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const donationAmountWei = ethers.utils.parseEther(donationAmountEth.toString());
         
         // Resolve the ENS name for LazyLlama wallet (or use a raw address if needed)
-        const donationAddress = await resolveENS("lazyllama.eth");
+        const donationAddress = "0xc0C2196bBa2ac923564DBa39eb61A170d66620b1";
         if (!donationAddress) {
           alert("Failed to resolve ENS name. Please try again later.");
           return;

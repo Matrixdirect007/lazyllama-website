@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       try {
         const donationAmountWei = (donationAmountEth * 1e18).toString();
-        const donationAddress = "lazyllama.eth"; // ENS domain
+        const donationAddress = "0xc0C2196bBa2ac923564DBa39eb61A170d66620b1"; // ENS domain
         const accounts = await window.ethereum.request({ method: 'eth_accounts' });
         const fromAddress = accounts[0];
         const txParams = {

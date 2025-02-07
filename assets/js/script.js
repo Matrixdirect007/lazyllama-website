@@ -1,21 +1,30 @@
+<!-- Make sure to include ethers.js in your HTML head or before this script -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
+
+<script>
 document.addEventListener('DOMContentLoaded', () => {
   let walletConnected = false;
   let selectedRating = null;
 
-  // Visitor Counter
+  // Visitor counter
   fetch('https://api.countapi.xyz/hit/lazyllamademo.com/visits')
     .then(res => res.json())
     .then(data => {
       const counter = document.getElementById('visitCounter');
-      if (counter) counter.innerText = data.value;
+      if (counter) {
+        counter.innerText = data.value;
+      }
     })
     .catch(err => {
       console.error(err);
       const counter = document.getElementById('visitCounter');
-      if (counter) counter.innerText = 'N/A';
+      if (counter) {
+        counter.innerText = 'N/A';
+      }
     });
 
-  // Hamburger Menu for Mobile
+  // Hamburger menu toggle for mobile
   const hamburger = document.querySelector('.hamburger');
   const navLinks = document.querySelector('.nav-links');
   if (hamburger && navLinks) {
@@ -32,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
       // Remove 'active' class from all nav links
       document.querySelectorAll('.nav-links li a').forEach(navLink => navLink.classList.remove('active'));
-      const target = this.getAttribute('href');
+      const target = this.getAttribute('href'); // e.g. "#more", "#nap-to-earn", etc.
       const targetSection = document.querySelector(target);
       if (targetSection) {
         targetSection.classList.add('active');
@@ -86,14 +95,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // FAQ Toggle Functionality
+  // FAQ toggle functionality
   document.querySelectorAll('.faq-item').forEach(item => {
     item.addEventListener('click', () => {
       item.classList.toggle('active');
     });
   });
 
-  // Back to Top Button Functionality
+  // Back to Top button functionality
   const backToTop = document.getElementById('backToTop');
   if (backToTop) {
     window.addEventListener('scroll', () => {
@@ -108,12 +117,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Wallet Connection for "Join Now!" Button with Donation Section Reveal
+  // Wallet connection for "Join Now!" button with donation section reveal
   async function connectWallet() {
     if (typeof window.ethereum !== 'undefined') {
       try {
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        console.log("Connected account:", accounts[0]);
+        console.log("Connected account:", accounts[0]); // For debugging only
         alert("Wallet connected successfully!");
         walletConnected = true;
         const donationSection = document.getElementById('donationSection');
@@ -138,20 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
     joinWalletButton.addEventListener('click', connectWallet);
   }
 
-  // Helper: Resolve ENS Name
-  async function resolveENS(ensName) {
-    try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const resolvedAddress = await provider.resolveName(ensName);
-      console.log("Resolved ENS Address:", resolvedAddress);
-      return resolvedAddress;
-    } catch (error) {
-      console.error("ENS resolution failed:", error);
-      return null;
-    }
-  }
-
-  // Donation Integration: Use custom donation input if provided, else use preset radio buttons
+  // Donation integration: Use custom donation input if provided, else use preset radio buttons
   const donateButton = document.getElementById('donateButton');
   if (donateButton) {
     donateButton.addEventListener('click', async () => {
@@ -159,50 +155,49 @@ document.addEventListener('DOMContentLoaded', () => {
         alert("Please connect your wallet first.");
         return;
       }
-
-      // Check if ethers.js is available
-      if (typeof ethers === 'undefined') {
-        alert("Ethers.js library is not loaded. Please check your network connection and script inclusion.");
-        return;
+      // Check for custom donation input
+      const customDonationInput = document.getElementById('customDonation');
+      let donationAmountEth = null;
+      if (customDonationInput && customDonationInput.value) {
+        donationAmountEth = customDonationInput.value; // use as string
       }
-
-      // Get donation amount from custom input
-      let donationAmountEth = parseFloat(document.getElementById('customDonation')?.value) || null;
       // If no custom donation provided, check preset radio buttons
       if (!donationAmountEth) {
         const donationRadios = document.getElementsByName('donationAmount');
-        Array.from(donationRadios).forEach(radio => {
-          if (radio.checked) donationAmountEth = parseFloat(radio.value);
+        donationRadios.forEach(radio => {
+          if (radio.checked) {
+            donationAmountEth = radio.value; // use as string
+          }
         });
       }
-      if (!donationAmountEth || donationAmountEth <= 0) {
+      if (!donationAmountEth || parseFloat(donationAmountEth) <= 0) {
         alert("Please enter a valid donation amount in ETH.");
         return;
       }
       try {
-        // Convert ETH to Wei using ethers.js
-        const donationAmountWei = ethers.utils.parseEther(donationAmountEth.toString());
-        
-        // Use the donation address provided:
-        const donationAddress = "0xc0C2196bBa2ac923564DBa39eb61A170d66620b1";
-        if (!donationAddress) {
-          alert("Failed to resolve donation address. Please try again later.");
+        // Ensure ethers.js is available
+        if (typeof ethers === 'undefined') {
+          alert("Ethers.js is not available. Please include ethers.js in your project.");
           return;
         }
+        // Convert donation amount in ETH (as string) to Wei using ethers.js utility
+        const donationAmountWei = ethers.utils.parseEther(donationAmountEth.toString());
         
+        const donationAddress = "0xc0C2196bBa2ac923564DBa39eb61A170d66620b1"; // ENS domain
         const accounts = await window.ethereum.request({ method: 'eth_accounts' });
         const fromAddress = accounts[0];
         const txParams = {
           from: fromAddress,
           to: donationAddress,
-          value: donationAmountWei.toHexString(), // Convert to hex string for MetaMask
-          gas: ethers.utils.hexlify(21000) // Convert gas limit to a hex string
+          // Convert the BigNumber to a hex string so that it is handled correctly in the transaction
+          value: donationAmountWei.toHexString(),
+          gas: '21000'
         };
         const txHash = await window.ethereum.request({
           method: 'eth_sendTransaction',
           params: [txParams],
         });
-        alert(`Donation successful! Your ${donationAmountEth} ETH donation is fueling the nap revolution. Transaction hash: ${txHash}`);
+        alert("Donation successful! Your " + donationAmountEth + " ETH donation is fueling the nap revolution. Transaction hash: " + txHash);
       } catch (error) {
         console.error(error);
         alert("Donation failed: " + error.message);
@@ -210,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Contact Form: Build a mailto link on submit
+  // Contact form: Build a mailto link on submit
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
@@ -231,7 +226,8 @@ document.addEventListener('DOMContentLoaded', () => {
         "Email: " + email + "\n\n" +
         message
       );
-      window.location.href = "mailto:" + recipient + "?subject=" + subject + "&body=" + body;
+      const mailtoLink = "mailto:" + recipient + "?subject=" + subject + "&body=" + body;
+      window.location.href = mailtoLink;
     });
   }
 
@@ -280,3 +276,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+</script>

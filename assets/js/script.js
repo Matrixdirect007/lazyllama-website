@@ -1,9 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Global flags for wallet connection and feedback rating
   let walletConnected = false;
   let selectedRating = null;
-  
-  // Update visitor counter using CountAPI
+
+  // Visitor counter
   fetch('https://api.countapi.xyz/hit/lazyllamademo.com/visits')
     .then(res => res.json())
     .then(data => {
@@ -19,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         counter.innerText = 'N/A';
       }
     });
-  
+
   // Hamburger menu toggle for mobile
   const hamburger = document.querySelector('.hamburger');
   const navLinks = document.querySelector('.nav-links');
@@ -28,25 +27,31 @@ document.addEventListener('DOMContentLoaded', () => {
       navLinks.classList.toggle('active');
     });
   }
-  
-  // Navigation: Show selected section on click
+
+  // Navigation: Smooth scroll and update active section for main nav-links
   document.querySelectorAll('.nav-links li a').forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
+      // Remove 'active' class from all sections
       document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
-      const target = this.getAttribute('href');
+      // Remove 'active' class from all nav links
+      document.querySelectorAll('.nav-links li a').forEach(navLink => navLink.classList.remove('active'));
+      const target = this.getAttribute('href'); // e.g. "#more", "#nap-to-earn", etc.
       const targetSection = document.querySelector(target);
       if (targetSection) {
         targetSection.classList.add('active');
+        targetSection.scrollIntoView({ behavior: 'smooth' });
       }
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Mark this nav link as active
+      this.classList.add('active');
+      // Hide mobile nav if open
       if (navLinks && navLinks.classList.contains('active')) {
         navLinks.classList.remove('active');
       }
     });
   });
-  
-  // CTA Buttons in More section navigate to respective sections
+
+  // Additional binding for "More" section buttons (outside main nav)
   document.querySelectorAll('#more a.cta-button').forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
@@ -55,19 +60,44 @@ document.addEventListener('DOMContentLoaded', () => {
       const targetSection = document.querySelector(target);
       if (targetSection) {
         targetSection.classList.add('active');
+        targetSection.scrollIntoView({ behavior: 'smooth' });
       }
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
-  
+
+  // Bind RSVP Now buttons to open a mailto link to lazyllama@lazyllama.co
+  document.querySelectorAll('.rsvpButton').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const subject = encodeURIComponent("RSVP for Event");
+      const body = encodeURIComponent("Hi LazyLlama Team,\n\nI would like to RSVP for your event.\n\nThanks,\n[Your Name]");
+      window.location.href = "mailto:lazyllama@lazyllama.co?subject=" + subject + "&body=" + body;
+    });
+  });
+
+  // Bind "Under Development" messages to primary action buttons
+  const underDevButtons = [
+    'startNappingButton',
+    'getChillCurrencyButton',
+    'startStakingButton',
+    'shopNowButton'
+  ];
+  underDevButtons.forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) {
+      btn.addEventListener('click', () => {
+        alert("Under development. Stay tuned for updates!");
+      });
+    }
+  });
+
   // FAQ toggle functionality
   document.querySelectorAll('.faq-item').forEach(item => {
     item.addEventListener('click', () => {
       item.classList.toggle('active');
     });
   });
-  
-  // Back to top button functionality
+
+  // Back to Top button functionality
   const backToTop = document.getElementById('backToTop');
   if (backToTop) {
     window.addEventListener('scroll', () => {
@@ -81,15 +111,19 @@ document.addEventListener('DOMContentLoaded', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
-  
-  // Wallet connection for "Join Now!" button
+
+  // Wallet connection for "Join Now!" button with donation section reveal
   async function connectWallet() {
     if (typeof window.ethereum !== 'undefined') {
       try {
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        console.log("Connected account:", accounts[0]);
-        alert("Wallet connected: " + accounts[0]);
+        console.log("Connected account:", accounts[0]); // For debugging only
+        alert("Wallet connected successfully!");
         walletConnected = true;
+        const donationSection = document.getElementById('donationSection');
+        if (donationSection) {
+          donationSection.style.display = 'block';
+        }
         const feedbackSection = document.getElementById('feedbackSection');
         if (feedbackSection) {
           feedbackSection.style.display = 'block';
@@ -102,54 +136,92 @@ document.addEventListener('DOMContentLoaded', () => {
       alert("MetaMask is not installed. Please install MetaMask to join the revolution.");
     }
   }
+  
   const joinWalletButton = document.getElementById('joinWalletButton');
   if (joinWalletButton) {
     joinWalletButton.addEventListener('click', connectWallet);
   }
-  
-  // Extra CTA Buttons – Popup messages
-  const startNappingButton = document.getElementById('startNappingButton');
-  if (startNappingButton) {
-    startNappingButton.addEventListener('click', () => {
-      alert("Under Development");
-    });
-  }
-  const getChillCurrencyButton = document.getElementById('getChillCurrencyButton');
-  if (getChillCurrencyButton) {
-    getChillCurrencyButton.addEventListener('click', () => {
-      alert("Coming Soon");
-    });
-  }
-  const startStakingButton = document.getElementById('startStakingButton');
-  if (startStakingButton) {
-    startStakingButton.addEventListener('click', () => {
-      alert("Coming Soon");
-    });
-  }
-  const shopNowButton = document.getElementById('shopNowButton');
-  if (shopNowButton) {
-    shopNowButton.addEventListener('click', () => {
-      alert("Coming Soon");
-    });
-  }
-  
-  // RSVP Buttons: Navigate to the Contact section
-  document.querySelectorAll('.rsvpButton').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
-      const contactSection = document.querySelector('#contact');
-      if (contactSection) {
-        contactSection.classList.add('active');
+
+  // Donation integration: Use custom donation input if provided, else use preset radio buttons
+  const donateButton = document.getElementById('donateButton');
+  if (donateButton) {
+    donateButton.addEventListener('click', async () => {
+      if (!walletConnected) {
+        alert("Please connect your wallet first.");
+        return;
       }
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Check for custom donation input
+      const customDonationInput = document.getElementById('customDonation');
+      let donationAmountEth = null;
+      if (customDonationInput && customDonationInput.value) {
+        donationAmountEth = parseFloat(customDonationInput.value);
+      }
+      // If no custom donation provided, check preset radio buttons
+      if (!donationAmountEth) {
+        const donationRadios = document.getElementsByName('donationAmount');
+        donationRadios.forEach(radio => {
+          if (radio.checked) {
+            donationAmountEth = parseFloat(radio.value);
+          }
+        });
+      }
+      if (!donationAmountEth || donationAmountEth <= 0) {
+        alert("Please enter a valid donation amount in ETH.");
+        return;
+      }
+      try {
+        const donationAmountWei = (donationAmountEth * 1e18).toString();
+        const donationAddress = "lazyllama.eth"; // ENS domain
+        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+        const fromAddress = accounts[0];
+        const txParams = {
+          from: fromAddress,
+          to: donationAddress,
+          value: donationAmountWei,
+          gas: '21000'
+        };
+        const txHash = await window.ethereum.request({
+          method: 'eth_sendTransaction',
+          params: [txParams],
+        });
+        alert("Donation successful! Your " + donationAmountEth + " ETH donation is fueling the nap revolution. Transaction hash: " + txHash);
+      } catch (error) {
+        console.error(error);
+        alert("Donation failed: " + error.message);
+      }
     });
-  });
-  
-  // Feedback: Thumbs Up/Down and Comment Submission
+  }
+
+  // Contact form: Build a mailto link on submit
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const inquiryType = document.getElementById('inquiryType').value;
+      const message = document.getElementById('message').value;
+      let recipient = "info@lazyllama.co"; // Default: General Inquiries
+      if (inquiryType === "support") {
+        recipient = "lazyllama@lazyllama.co";
+      } else if (inquiryType === "sales") {
+        recipient = "chillbert@lazyllama.co";
+      }
+      const subject = encodeURIComponent("LazyLlama Inquiry (" + inquiryType + ")");
+      const body = encodeURIComponent(
+        "Name: " + name + "\n" +
+        "Email: " + email + "\n\n" +
+        message
+      );
+      const mailtoLink = "mailto:" + recipient + "?subject=" + subject + "&body=" + body;
+      window.location.href = mailtoLink;
+    });
+  }
+
+  // Feedback: Thumbs up/down and comment submission
   const thumbsUp = document.getElementById('thumbsUp');
   const thumbsDown = document.getElementById('thumbsDown');
   const submitFeedback = document.getElementById('submitFeedback');
-  
   if (thumbsUp && thumbsDown) {
     thumbsUp.addEventListener('click', () => {
       selectedRating = 'up';
@@ -166,7 +238,6 @@ document.addEventListener('DOMContentLoaded', () => {
       thumbsUp.setAttribute('aria-pressed', 'false');
     });
   }
-  
   if (submitFeedback) {
     submitFeedback.addEventListener('click', () => {
       if (!walletConnected) {
@@ -192,3 +263,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+
+

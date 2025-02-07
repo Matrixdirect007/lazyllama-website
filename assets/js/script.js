@@ -7,19 +7,15 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(res => res.json())
     .then(data => {
       const counter = document.getElementById('visitCounter');
-      if (counter) {
-        counter.innerText = data.value;
-      }
+      if (counter) counter.innerText = data.value;
     })
     .catch(err => {
       console.error(err);
       const counter = document.getElementById('visitCounter');
-      if (counter) {
-        counter.innerText = 'N/A';
-      }
+      if (counter) counter.innerText = 'N/A';
     });
 
-  // Hamburger Menu Toggle for Mobile
+  // Hamburger Menu for Mobile
   const hamburger = document.querySelector('.hamburger');
   const navLinks = document.querySelector('.nav-links');
   if (hamburger && navLinks) {
@@ -36,7 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
       // Remove 'active' class from all nav links
       document.querySelectorAll('.nav-links li a').forEach(navLink => navLink.classList.remove('active'));
-
       const target = this.getAttribute('href'); // e.g. "#more", "#nap-to-earn", etc.
       const targetSection = document.querySelector(target);
       if (targetSection) {
@@ -164,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
         alert("Please connect your wallet first.");
         return;
       }
-      // Check for custom donation input
+      // Get donation amount from custom input
       let donationAmountEth = parseFloat(document.getElementById('customDonation')?.value) || null;
       // If no custom donation provided, check preset radio buttons
       if (!donationAmountEth) {
@@ -181,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Convert ETH to Wei using ethers.js
         const donationAmountWei = ethers.utils.parseEther(donationAmountEth.toString());
         
-        // Resolve the ENS name for LazyLlama wallet
+        // Resolve the ENS name for LazyLlama wallet (or use a raw address if needed)
         const donationAddress = await resolveENS("lazyllama.eth");
         if (!donationAddress) {
           alert("Failed to resolve ENS name. Please try again later.");

@@ -2,24 +2,20 @@ document.addEventListener('DOMContentLoaded', () => {
   let walletConnected = false;
   let selectedRating = null;
 
-  // Visitor counter
+  // Visitor Counter
   fetch('https://api.countapi.xyz/hit/lazyllamademo.com/visits')
     .then(res => res.json())
     .then(data => {
       const counter = document.getElementById('visitCounter');
-      if (counter) {
-        counter.innerText = data.value;
-      }
+      if (counter) counter.innerText = data.value;
     })
     .catch(err => {
       console.error(err);
       const counter = document.getElementById('visitCounter');
-      if (counter) {
-        counter.innerText = 'N/A';
-      }
+      if (counter) counter.innerText = 'N/A';
     });
 
-  // Hamburger menu toggle for mobile
+  // Hamburger Menu for Mobile
   const hamburger = document.querySelector('.hamburger');
   const navLinks = document.querySelector('.nav-links');
   if (hamburger && navLinks) {
@@ -30,13 +26,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Navigation: Smooth scroll and update active section for main nav-links
   document.querySelectorAll('.nav-links li a').forEach(link => {
-    link.addEventListener('click', function(e) {
+    link.addEventListener('click', function (e) {
       e.preventDefault();
       // Remove 'active' class from all sections
       document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
       // Remove 'active' class from all nav links
       document.querySelectorAll('.nav-links li a').forEach(navLink => navLink.classList.remove('active'));
-      const target = this.getAttribute('href'); // e.g. "#more", "#nap-to-earn", etc.
+      const target = this.getAttribute('href');
       const targetSection = document.querySelector(target);
       if (targetSection) {
         targetSection.classList.add('active');
@@ -53,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Additional binding for "More" section buttons (outside main nav)
   document.querySelectorAll('#more a.cta-button').forEach(link => {
-    link.addEventListener('click', function(e) {
+    link.addEventListener('click', function (e) {
       e.preventDefault();
       document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
       const target = this.getAttribute('href');
@@ -90,14 +86,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // FAQ toggle functionality
+  // FAQ Toggle Functionality
   document.querySelectorAll('.faq-item').forEach(item => {
     item.addEventListener('click', () => {
       item.classList.toggle('active');
     });
   });
 
-  // Back to Top button functionality
+  // Back to Top Button Functionality
   const backToTop = document.getElementById('backToTop');
   if (backToTop) {
     window.addEventListener('scroll', () => {
@@ -112,12 +108,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Wallet connection for "Join Now!" button with donation section reveal
+  // Wallet Connection for "Join Now!" Button with Donation Section Reveal
   async function connectWallet() {
     if (typeof window.ethereum !== 'undefined') {
       try {
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        console.log("Connected account:", accounts[0]); // For debugging only
+        console.log("Connected account:", accounts[0]);
         alert("Wallet connected successfully!");
         walletConnected = true;
         const donationSection = document.getElementById('donationSection');
@@ -136,89 +132,88 @@ document.addEventListener('DOMContentLoaded', () => {
       alert("MetaMask is not installed. Please install MetaMask to join the revolution.");
     }
   }
-  
+
   const joinWalletButton = document.getElementById('joinWalletButton');
   if (joinWalletButton) {
     joinWalletButton.addEventListener('click', connectWallet);
   }
 
-// Donation integration: Use custom donation input if provided, else use preset radio buttons.
-const donateButton = document.getElementById('donateButton');
-  
-if (donateButton) {
-  donateButton.addEventListener('click', async () => {
-    // Check if the Ethereum provider (e.g., MetaMask) is available
-    if (!window.ethereum) {
-      alert("Ethereum wallet is not available. Please install MetaMask.");
-      return;
-    }
-
-    // Get connected accounts
-    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-    if (!accounts || accounts.length === 0) {
-      alert("Please connect your wallet first.");
-      return;
-    }
-    const fromAddress = accounts[0];
-
-    // Determine donation amount from either custom input or radio buttons
-    let donationAmountEth = null;
-    const customDonationInput = document.getElementById('customDonation');
-    if (customDonationInput && customDonationInput.value.trim() !== "") {
-      donationAmountEth = customDonationInput.value.trim();
-    } else {
-      const donationRadios = document.getElementsByName('donationAmount');
-      // Use a for loop to check for the checked radio button
-      for (const radio of donationRadios) {
-        if (radio.checked) {
-          donationAmountEth = radio.value;
-          break;
-        }
-      }
-    }
-
-    // Validate the donation amount
-    if (!donationAmountEth || isNaN(donationAmountEth) || parseFloat(donationAmountEth) <= 0) {
-      alert("Please enter a valid donation amount in ETH.");
-      return;
-    }
-
+  // Helper: Resolve ENS Name
+  async function resolveENS(ensName) {
     try {
-      // Convert the donation amount from ETH to Wei using ethers.js
-      // This handles large numbers and avoids floating-point precision issues.
-      const donationAmountWei = ethers.utils.parseUnits(donationAmountEth, 'ether');
-      
-      // Define the donation address (ensure this is the correct mainnet address)
-      const donationAddress = "0xc0C2196bBa2ac923564DBa39eb61A170d66620b1";
-
-      // Prepare the transaction parameters.
-      // Note: For a simple ETH transfer, 21,000 gas is typically sufficient.
-      const txParams = {
-        from: fromAddress,
-        to: donationAddress,
-        // Convert the BigNumber to a hexadecimal string (if required by the provider)
-        value: donationAmountWei.toHexString(),
-        gas: '21000'
-      };
-
-      // Request the Ethereum provider to send the transaction.
-      const txHash = await window.ethereum.request({
-        method: 'eth_sendTransaction',
-        params: [txParams],
-      });
-
-      alert(`Donation successful! Your ${donationAmountEth} ETH donation is fueling the nap revolution. Transaction hash: ${txHash}`);
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const resolvedAddress = await provider.resolveName(ensName);
+      console.log("Resolved ENS Address:", resolvedAddress);
+      return resolvedAddress;
     } catch (error) {
-      console.error("Donation transaction failed:", error);
-      alert("Donation failed: " + error.message);
+      console.error("ENS resolution failed:", error);
+      return null;
     }
-  });
-}
+  }
 
-  // Contact form: Build a mailto link on submit
+  // Donation Integration: Use custom donation input if provided, else use preset radio buttons
+  const donateButton = document.getElementById('donateButton');
+  if (donateButton) {
+    donateButton.addEventListener('click', async () => {
+      if (!walletConnected) {
+        alert("Please connect your wallet first.");
+        return;
+      }
+
+      // Check if ethers.js is available
+      if (typeof ethers === 'undefined') {
+        alert("Ethers.js library is not loaded. Please check your network connection and script inclusion.");
+        return;
+      }
+
+      // Get donation amount from custom input
+      let donationAmountEth = parseFloat(document.getElementById('customDonation')?.value) || null;
+      // If no custom donation provided, check preset radio buttons
+      if (!donationAmountEth) {
+        const donationRadios = document.getElementsByName('donationAmount');
+        Array.from(donationRadios).forEach(radio => {
+          if (radio.checked) donationAmountEth = parseFloat(radio.value);
+        });
+      }
+      if (!donationAmountEth || donationAmountEth <= 0) {
+        alert("Please enter a valid donation amount in ETH.");
+        return;
+      }
+      try {
+        // Convert ETH to Wei using ethers.js
+        const donationAmountWei = ethers.utils.parseEther(donationAmountEth.toString());
+        
+        // Use the donation address (replace with ENS resolution if needed)
+        const donationAddress = "0xc0C2196bBa2ac923564DBa39eb61A170d66620b1";
+        if (!donationAddress) {
+          alert("Failed to resolve donation address. Please try again later.");
+          return;
+        }
+        
+        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+        const fromAddress = accounts[0];
+        const txParams = {
+          from: fromAddress,
+          to: donationAddress,
+          value: donationAmountWei.toHexString(), // Convert to hex string for MetaMask
+          gas: ethers.utils.hexlify(21000) // Convert gas limit to a hex string
+        };
+        const txHash = await window.ethereum.request({
+          method: 'eth_sendTransaction',
+          params: [txParams],
+        });
+        alert(`Donation successful! Your ${donationAmountEth} ETH donation is fueling the nap revolution. Transaction hash: ${txHash}`);
+      } catch (error) {
+        console.error(error);
+        alert("Donation failed: " + error.message);
+      }
+    });
+  }
+
+  // Contact Form: Build a mailto link on submit
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
+    contactForm.addEventListener('submit', function (e) {
       e.preventDefault();
       const name = document.getElementById('name').value;
       const email = document.getElementById('email').value;
@@ -236,8 +231,7 @@ if (donateButton) {
         "Email: " + email + "\n\n" +
         message
       );
-      const mailtoLink = "mailto:" + recipient + "?subject=" + subject + "&body=" + body;
-      window.location.href = mailtoLink;
+      window.location.href = "mailto:" + recipient + "?subject=" + subject + "&body=" + body;
     });
   }
 
@@ -286,6 +280,4 @@ if (donateButton) {
     });
   }
 });
-
-
 

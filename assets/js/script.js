@@ -1,8 +1,3 @@
-<!-- Make sure to include ethers.js in your HTML head or before this script -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script> -->
-<script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
-
-<script>
 document.addEventListener('DOMContentLoaded', () => {
   let walletConnected = false;
   let selectedRating = null;
@@ -147,63 +142,78 @@ document.addEventListener('DOMContentLoaded', () => {
     joinWalletButton.addEventListener('click', connectWallet);
   }
 
-  // Donation integration: Use custom donation input if provided, else use preset radio buttons
-  const donateButton = document.getElementById('donateButton');
-  if (donateButton) {
-    donateButton.addEventListener('click', async () => {
-      if (!walletConnected) {
-        alert("Please connect your wallet first.");
-        return;
-      }
-      // Check for custom donation input
-      const customDonationInput = document.getElementById('customDonation');
-      let donationAmountEth = null;
-      if (customDonationInput && customDonationInput.value) {
-        donationAmountEth = customDonationInput.value; // use as string
-      }
-      // If no custom donation provided, check preset radio buttons
-      if (!donationAmountEth) {
-        const donationRadios = document.getElementsByName('donationAmount');
-        donationRadios.forEach(radio => {
-          if (radio.checked) {
-            donationAmountEth = radio.value; // use as string
-          }
-        });
-      }
-      if (!donationAmountEth || parseFloat(donationAmountEth) <= 0) {
-        alert("Please enter a valid donation amount in ETH.");
-        return;
-      }
-      try {
-        // Ensure ethers.js is available
-        if (typeof ethers === 'undefined') {
-          alert("Ethers.js is not available. Please include ethers.js in your project.");
-          return;
+// Donation integration: Use custom donation input if provided, else use preset radio buttons.
+const donateButton = document.getElementById('donateButton');
+  
+if (donateButton) {
+  donateButton.addEventListener('click', async () => {
+    // Check if the Ethereum provider (e.g., MetaMask) is available
+    if (!window.ethereum) {
+      alert("Ethereum wallet is not available. Please install MetaMask.");
+      return;
+    }
+
+    // Get connected accounts
+    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+    if (!accounts || accounts.length === 0) {
+      alert("Please connect your wallet first.");
+      return;
+    }
+    const fromAddress = accounts[0];
+
+    // Determine donation amount from either custom input or radio buttons
+    let donationAmountEth = null;
+    const customDonationInput = document.getElementById('customDonation');
+    if (customDonationInput && customDonationInput.value.trim() !== "") {
+      donationAmountEth = customDonationInput.value.trim();
+    } else {
+      const donationRadios = document.getElementsByName('donationAmount');
+      // Use a for loop to check for the checked radio button
+      for (const radio of donationRadios) {
+        if (radio.checked) {
+          donationAmountEth = radio.value;
+          break;
         }
-        // Convert donation amount in ETH (as string) to Wei using ethers.js utility
-        const donationAmountWei = ethers.utils.parseEther(donationAmountEth.toString());
-        
-        const donationAddress = "0xc0C2196bBa2ac923564DBa39eb61A170d66620b1"; // ENS domain
-        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-        const fromAddress = accounts[0];
-        const txParams = {
-          from: fromAddress,
-          to: donationAddress,
-          // Convert the BigNumber to a hex string so that it is handled correctly in the transaction
-          value: donationAmountWei.toHexString(),
-          gas: '21000'
-        };
-        const txHash = await window.ethereum.request({
-          method: 'eth_sendTransaction',
-          params: [txParams],
-        });
-        alert("Donation successful! Your " + donationAmountEth + " ETH donation is fueling the nap revolution. Transaction hash: " + txHash);
-      } catch (error) {
-        console.error(error);
-        alert("Donation failed: " + error.message);
       }
-    });
-  }
+    }
+
+    // Validate the donation amount
+    if (!donationAmountEth || isNaN(donationAmountEth) || parseFloat(donationAmountEth) <= 0) {
+      alert("Please enter a valid donation amount in ETH.");
+      return;
+    }
+
+    try {
+      // Convert the donation amount from ETH to Wei using ethers.js
+      // This handles large numbers and avoids floating-point precision issues.
+      const donationAmountWei = ethers.utils.parseUnits(donationAmountEth, 'ether');
+      
+      // Define the donation address (ensure this is the correct mainnet address)
+      const donationAddress = "0xc0C2196bBa2ac923564DBa39eb61A170d66620b1";
+
+      // Prepare the transaction parameters.
+      // Note: For a simple ETH transfer, 21,000 gas is typically sufficient.
+      const txParams = {
+        from: fromAddress,
+        to: donationAddress,
+        // Convert the BigNumber to a hexadecimal string (if required by the provider)
+        value: donationAmountWei.toHexString(),
+        gas: '21000'
+      };
+
+      // Request the Ethereum provider to send the transaction.
+      const txHash = await window.ethereum.request({
+        method: 'eth_sendTransaction',
+        params: [txParams],
+      });
+
+      alert(`Donation successful! Your ${donationAmountEth} ETH donation is fueling the nap revolution. Transaction hash: ${txHash}`);
+    } catch (error) {
+      console.error("Donation transaction failed:", error);
+      alert("Donation failed: " + error.message);
+    }
+  });
+}
 
   // Contact form: Build a mailto link on submit
   const contactForm = document.getElementById('contactForm');
@@ -276,4 +286,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
-</script>
+
+
+

@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (counter) counter.innerText = data.value;
     })
     .catch(err => {
-      console.error(err);
+      console.error("Error fetching visitor count:", err);
       const counter = document.getElementById('visitCounter');
       if (counter) counter.innerText = 'N/A';
     });
@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         alert(`Donation successful! Your ${donationAmountEth} ETH donation is fueling the nap revolution. Transaction hash: ${txHash}`);
       } catch (error) {
-        console.error(error);
+        console.error("Donation error:", error);
         alert("Donation failed: " + error.message);
       }
     });

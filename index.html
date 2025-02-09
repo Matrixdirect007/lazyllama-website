@@ -6,6 +6,10 @@
   <meta name="keywords" content="LazyLlama, Nap Revolution, Chill, Crypto, MetaMask, Entertainment, Humor">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="index, follow">
+  <meta name="author" content="LazyLlama Movement">
+  <meta property="og:url" content="https://www.lazyllama.com">
+  <meta property="og:type" content="website">
+  <meta name="twitter:site" content="@Lazy_Chillbert">
   
   <!-- Open Graph / Twitter -->
   <meta property="og:title" content="LazyLlama – Nap Hard, Laugh Harder">
@@ -22,7 +26,7 @@
   <link rel="stylesheet" href="assets/css/styles.css">
     <!-- ... other head elements ... -->
     <!-- Ethers.js Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.1/ethers.umd.min.js" type="application/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.1/ethers.umd.min.js" type="application/javascript" async></script>
 </head>
 <body>
   <!-- Skip Navigation Link -->
@@ -64,12 +68,12 @@
       <div id="feedbackSection">
         <h3>Leave Your Feedback</h3>
         <p>Thumbs up or down, and drop your funniest quip:</p>
-        <button id="thumbsUp" class="cta-button" aria-pressed="false">👍</button>
-        <button id="thumbsDown" class="cta-button" aria-pressed="false">👎</button>
+        <button id="thumbsUp" class="cta-button" aria-pressed="false" aria-label="Thumbs Up">👍</button>
+        <button id="thumbsDown" class="cta-button" aria-pressed="false" aria-label="Thumbs Down">👎</button>
         <br>
         <textarea id="comment" placeholder="Share your hilarious thoughts..." rows="3" aria-label="Your feedback"></textarea>
         <br>
-        <button id="submitFeedback" class="cta-button">Submit Feedback</button>
+        <button id="submitFeedback" class="cta-button" aria-label="Submit Feedback">Submit Feedback</button>
       </div>
     </section>
     
@@ -182,7 +186,7 @@
             <li><strong>Earn Chillaxium:</strong> Every power nap earns you Chillaxium – the laziest crypto on the block.</li>
             <li><strong>Redeem Your Rewards:</strong> Use Chillaxium for exclusive swag, VIP events, and other ultra-cool perks.</li>
           </ul>
-          <button class="cta-button" id="startNappingButton">Start Napping Now!</button>
+          <button class="cta-button" id="startNappingButton" aria-label="Start Napping Now">Start Napping Now!</button>
         </div>
       </div>
     </section>
@@ -203,7 +207,7 @@
             <li><strong>Hoard or Spend:</strong> Save up for exclusive gear, VIP events, or simply flaunt your chill status.</li>
             <li><strong>Trade with Friends:</strong> Swap Chillaxium with fellow nappers to boost your chill factor.</li>
           </ul>
-          <button class="cta-button" id="getChillCurrencyButton">Get Your Chill Currency!</button>
+          <button class="cta-button" id="getChillCurrencyButton" aria-label="Get Your Chill Currency">Get Your Chill Currency!</button>
         </div>
       </div>
     </section>
@@ -224,7 +228,7 @@
             <li><strong>Passive Income:</strong> Let your staked Chillaxium work for you while you snooze.</li>
             <li><strong>Reinvest or Withdraw:</strong> Whether you want to keep napping or cash out, the choice is yours.</li>
           </ul>
-          <button class="cta-button" id="startStakingButton">Start Staking Now!</button>
+          <button class="cta-button" id="startStakingButton" aria-label="Start Staking Now">Start Staking Now!</button>
         </div>
       </div>
     </section>
@@ -246,7 +250,7 @@
             <li><strong>Chillbert’s Coffee Mug:</strong> $14.99</li>
             <li><strong>Llama Nap Blanket:</strong> $39.99</li>
           </ul>
-          <button class="cta-button" id="shopNowButton">Shop Now!</button>
+          <button class="cta-button" id="shopNowButton" aria-label="Shop Now">Shop Now!</button>
         </div>
       </div>
     </section>
@@ -262,7 +266,7 @@
           </figure>
           <p><em>March 15, 2025</em></p>
           <p>Compete in the ultimate snooze contest. Winner gets bragging rights and a plush llama!</p>
-          <button class="cta-button rsvpButton">RSVP Now!</button>
+          <button class="cta-button rsvpButton" aria-label="RSVP Now">RSVP Now!</button>
         </div>
         <div class="event-card">
           <figure class="image-wrapper">
@@ -271,7 +275,7 @@
           </figure>
           <p><em>April 8, 2025</em></p>
           <p>Join our virtual hangout where brilliant ideas and hilarious banter meet.</p>
-          <button class="cta-button rsvpButton">RSVP Now!</button>
+          <button class="cta-button rsvpButton" aria-label="RSVP Now">RSVP Now!</button>
         </div>
         <div class="event-card">
           <figure class="image-wrapper">
@@ -280,7 +284,7 @@
           </figure>
           <p><em>July 22, 2025</em></p>
           <p>Live music, games, and enough chill vibes to make even the busiest person hit pause.</p>
-          <button class="cta-button rsvpButton">RSVP Now!</button>
+          <button class="cta-button rsvpButton" aria-label="RSVP Now">RSVP Now!</button>
         </div>
       </div>
     </section>
@@ -502,7 +506,7 @@
         Ready to level up your laziness and join the revolution? Connect your crypto wallet now to unlock the secrets of supreme chill.
         (Make sure you have MetaMask or a similar wallet installed.)
       </p>
-      <button id="joinWalletButton" class="cta-button">Join Now!</button>
+      <button id="joinWalletButton" class="cta-button" aria-label="Join Now">Join Now!</button>
       <!-- Donation Section (hidden by default) -->
       <div id="donationSection" style="display: none; margin-top: 1rem;">
         <p>How much nap fuel would you like to donate? (Enter ETH amount)</p>
@@ -532,7 +536,7 @@
         <p class="donation-note">
           Every nap fuel you donate is forever recorded in our sacred LazyLlama Ledger. If this revolution takes off, expect rewards as legendary as exclusive llama swag, digital Chillaxium, and eternal bragging rights. Your donation isn’t just appreciated—it’s history in the making!
         </p>
-        <button id="donateButton" class="cta-button">Donate &amp; Fuel the Chill</button>
+        <button id="donateButton" class="cta-button" aria-label="Donate & Fuel the Chill">Donate &amp; Fuel the Chill</button>
       </div>
     </section>
     
@@ -560,7 +564,7 @@
         <textarea id="message" name="message" rows="5" required></textarea>
         
         <div class="contact-button-group">
-          <button type="submit" class="cta-button">Send Your Vibe</button>
+          <button type="submit" class="cta-button" aria-label="Send Your Vibe">Send Your Vibe</button>
           <div class="contact-social-links">
             <a href="https://x.com/Lazy_Chillbert" target="_blank" rel="noopener noreferrer">X</a>
             <a href="https://www.facebook.com/profile.php?id=61572988047955" target="_blank" rel="noopener noreferrer">Facebook</a>
@@ -585,7 +589,7 @@
   </footer>
   
   <!-- External JavaScript -->
-  <script src="assets/js/script.js"></script>
+  <script src="assets/js/script.js" defer></script>
 </body>
 </html>
 

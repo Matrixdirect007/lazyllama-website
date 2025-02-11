@@ -1,173 +1,410 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="description" content="LazyLlama Movement – Nap Hard, Laugh Harder. Join our chill revolution where every snooze earns you Chillaxium.">
-  <meta name="keywords" content="LazyLlama, Nap Revolution, Chill, Crypto, MetaMask, Entertainment, Humor">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="index, follow">
-  <meta name="author" content="LazyLlama Movement">
-  <meta property="og:url" content="https://www.lazyllama.com">
-  <meta property="og:type" content="website">
-  <meta name="twitter:site" content="@Lazy_Chillbert">
+  <meta charset="UTF-8" />
+  <meta name="description" content="LazyLlama Movement – Nap Hard, Laugh Harder. Join our chill revolution where every snooze earns you Chillaxium." />
+  <meta name="keywords" content="LazyLlama, Nap Revolution, Chill, Crypto, MetaMask, Entertainment, Humor" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="LazyLlama Movement" />
+  <meta property="og:url" content="https://www.lazyllama.com" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:site" content="@Lazy_Chillbert" />
   
   <!-- Open Graph / Twitter -->
-  <meta property="og:title" content="LazyLlama – Nap Hard, Laugh Harder">
-  <meta property="og:description" content="Join LazyLlama and start earning Chillaxium with every power nap you take. Let’s get lazy – and rich – together!">
-  <meta property="og:image" content="assets/images/homepage/hero-llama.png">
-  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:title" content="LazyLlama – Nap Hard, Laugh Harder" />
+  <meta property="og:description" content="Join LazyLlama and start earning Chillaxium with every power nap you take. Let’s get lazy – and rich – together!" />
+  <meta property="og:image" content="assets/images/homepage/hero-llama.png" />
+  <meta name="twitter:card" content="summary_large_image" />
   
   <title>LazyLlama Movement – Nap Hard, Laugh Harder</title>
   
+  <!-- JSON‑LD Structured Data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "LazyLlama Movement",
+    "url": "https://www.lazyllama.com",
+    "logo": "https://www.lazyllama.com/assets/images/logo.png",
+    "sameAs": [
+      "https://x.com/Lazy_Chillbert",
+      "https://www.facebook.com/profile.php?id=61572988047955",
+      "https://discord.gg/uKdB4GF5ph"
+    ]
+  }
+  </script>
+  
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Anton&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Anton&display=swap" rel="stylesheet" />
   
   <!-- External CSS -->
-  <link rel="stylesheet" href="assets/css/styles.css">
-    <!-- ... other head elements ... -->
-    <!-- Ethers.js Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.1/ethers.umd.min.js" type="application/javascript" async></script>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  
+  <!-- Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.countapi.xyz;" />
+  
+  <!-- Ethers.js Library with SRI (replace the integrity hash with the correct one) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.1/ethers.umd.min.js" type="application/javascript" async
+          integrity="sha384-REPLACE_WITH_VALID_HASH" crossorigin="anonymous"></script>
 </head>
 <body>
   <!-- Skip Navigation Link -->
   <a href="#main" class="skip-link">Skip to Main Content</a>
   
-  <!-- Navigation Header -->
+  <!-- Header and Navigation -->
   <header>
     <nav class="navbar" aria-label="Main Navigation">
-      <div class="logo">LazyLlama</div>
-      <ul class="nav-links">
-        <li><a href="#home" class="active">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#how-it-works">How It Works</a></li>
-        <li><a href="#faq">FAQ</a></li>
-        <li><a href="#more">More</a></li>
-        <li class="join"><a href="#join">Join</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-      <div class="hamburger" aria-label="Toggle navigation" tabindex="0">
-        <span></span>
-        <span></span>
-        <span></span>
+      <div class="nav-inner">
+        <div class="logo">LazyLlama</div>
+        <ul class="nav-links">
+          <li><a href="#home" class="active">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#more">More</a></li>
+          <li class="join"><a href="#join">Join</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <!-- Menu toggle displays the word "Menu" -->
+        <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
       </div>
     </nav>
   </header>
   
   <!-- Main Content -->
   <main id="main" role="main">
-    <!-- Home Section with a Flirty Welcome -->
+    <!-- Home Section -->
     <section id="home" class="active">
       <h1>Hey there, Beautiful!</h1>
       <figure class="image-wrapper">
-        <img src="assets/images/homepage/hero-llama.webp" alt="A relaxed llama on a cloud, illustrated in pop-art style" loading="lazy">
+        <img src="assets/images/homepage/hero-llama.webp" alt="A relaxed llama on a cloud, illustrated in pop-art style" loading="lazy" />
       </figure>
-      <p>
-        Welcome to LazyLlama – where we turn napping into an art form and laziness into a lifestyle. Ready to ditch stress, embrace your inner couch potato, and maybe fall in love with doing nothing?
-      </p>
-      <p>Visitor Count: <span id="visitCounter">Loading...</span></p>
+      <div class="text-content">
+        <p>
+          Welcome to LazyLlama – where we turn napping into an art form and laziness into a lifestyle. Ready to ditch stress, embrace your inner couch potato, and maybe fall in love with doing nothing?
+        </p>
+        <p>Visitor Count: <span id="visitCounter" aria-live="polite">Loading...</span></p>
+      </div>
       <div id="feedbackSection">
         <h3>Leave Your Feedback</h3>
         <p>Thumbs up or down, and drop your funniest quip:</p>
         <button id="thumbsUp" class="cta-button" aria-pressed="false" aria-label="Thumbs Up">👍</button>
         <button id="thumbsDown" class="cta-button" aria-pressed="false" aria-label="Thumbs Down">👎</button>
-        <br>
+        <br />
         <textarea id="comment" placeholder="Share your hilarious thoughts..." rows="3" aria-label="Your feedback"></textarea>
-        <br>
+        <br />
         <button id="submitFeedback" class="cta-button" aria-label="Submit Feedback">Submit Feedback</button>
       </div>
     </section>
     
     <!-- About Section -->
     <section id="about">
-      <h2>About Us – We’re Too Cool for the Rat Race</h2>
+      <h2>About Me – I’m Too Cool for the Rat Race</h2>
       <div class="about-container">
         <figure class="image-wrapper">
-          <img src="assets/images/sections/about-llama-guru.webp" alt="Llama depicted as a relaxed guru, sipping tea" loading="lazy">
+          <img src="assets/images/sections/about-llama-guru.webp" alt="Llama depicted as a relaxed guru, sipping tea" loading="lazy" />
         </figure>
-        <div class="about-text">
+        <!-- Using text-content for consistent wrapping -->
+        <div class="text-content">
           <p>
-            We ditched the rat race ages ago. At LazyLlama, we’re experts in the fine art of doing nothing—with a smile and a wink. Join our hilarious journey where every snooze is celebrated.
+            I ditched the rat race ages ago. I’m an expert in the fine art of doing nothing—with a smile and a wink. Join my hilarious journey where every snooze is celebrated.
           </p>
           <div class="subsection">
-            <h3>Our Origins</h3>
+            <h3>My Origins</h3>
             <p>
-              Legend has it that Chillbert, our Nap Visionary, popped out of a haystack with one goal: to show the world that less hustle means more chuckles.
+              Legend has it that I popped out of a haystack with one goal: to show the world that less hustle means more chuckles.
             </p>
           </div>
           <div class="subsection">
-            <h3>Our Philosophy</h3>
+            <h3>My Philosophy</h3>
             <p>
-              "Sleep first, questions later." We believe life’s too short for stress—so kick back, relax, and let the world do its thing.
+              "Sleep first, questions later." I believe life’s too short for stress—so kick back, relax, and let the world do its thing.
             </p>
           </div>
           <div class="subsection">
-            <h3>Our Llamas</h3>
+            <h3>My Llamas</h3>
             <p>
-              Our furry overlord, Chillbert, reminds us that laughter and a little laziness go a long way. He’s the boss—if only you’d listen!
+              My furry overlord reminds me that laughter and a little laziness go a long way. He’s the boss—if only you’d listen!
             </p>
           </div>
         </div>
       </div>
     </section>
     
-    <!-- How It Works Section with a Humorous Twist -->
+    <!-- How It Works Section (Tabbed with Placeholder Image) -->
     <section id="how-it-works">
-      <h2>How It Works – Because Napping Is the New Hustle</h2>
-      <figure class="image-wrapper">
-        <img src="assets/images/sections/how-it-works.webp" alt="A fun diagram explaining the LazyLlama process" loading="lazy">
-      </figure>
-      <p>
-        We’ve turned napping into a superpower. Follow these delightfully lazy steps to transform your snooze into serious Chillaxium:
-      </p>
-      <div class="steps-container">
-        <div class="step">
-          <h3>Step 1: Embrace the Chill</h3>
-          <p>
-            Kick back and let your worries melt away like ice cream in the summer sun. Stress? Who needs it!
-          </p>
+      <div class="container">
+        <h2>How It Works – Your Guide to Lazy Excellence</h2>
+        <p class="section-subtitle">Follow these simple steps and turn every snooze into Chillaxium!</p>
+        <!-- Placeholder image for How It Works -->
+        <div class="how-image">
+          <img src="assets/images/sections/how-it-works.webp" alt="How It Works placeholder image" />
         </div>
-        <div class="step">
-          <h3>Step 2: Set a Nap Goal</h3>
-          <p>
-            Schedule your power nap like it’s your hottest date. After all, a proper snooze is the ultimate power move.
-          </p>
-        </div>
-        <div class="step">
-          <h3>Step 3: Earn While You Sleep</h3>
-          <p>
-            Every quality snooze earns you Chillaxium – think of it as cash for catching Zzz’s (and maybe drooling a little).
-          </p>
-        </div>
-        <div class="step">
-          <h3>Step 4: Let Others Do the Hard Work</h3>
-          <p>
-            Delegate, outsource, or simply let the world hustle while you perfect your nap. You deserve every minute of chill.
-          </p>
-        </div>
-        <div class="step">
-          <h3>Step 5: Repeat</h3>
-          <p>
-            Rinse, repeat, and become a bona fide nap legend. Congratulations—your bed is now your throne!
-          </p>
+        <!-- Tabbed interface for steps -->
+        <div class="tabs">
+          <ul class="tab-buttons">
+            <li data-tab="step1" class="active">Chill</li>
+            <li data-tab="step2">Set Goal</li>
+            <li data-tab="step3">Earn</li>
+            <li data-tab="step4">Relax</li>
+            <li data-tab="step5">Reap &amp; Shine</li>
+          </ul>
+          <div class="tab-content active" id="step1">
+             <h3>Chill</h3>
+             <p>Kick back, relax, and let the world fade away.</p>
+          </div>
+          <div class="tab-content" id="step2">
+             <h3>Set Goal</h3>
+             <p>Plan your power nap as if it’s the highlight of your day.</p>
+          </div>
+          <div class="tab-content" id="step3">
+             <h3>Earn</h3>
+             <p>Every quality nap earns you Chillaxium—watch your rewards grow!</p>
+          </div>
+          <div class="tab-content" id="step4">
+             <h3>Relax</h3>
+             <p>Sit back and let your Chillaxium do the work.</p>
+          </div>
+          <div class="tab-content" id="step5">
+             <h3>Reap &amp; Shine</h3>
+             <p>Reap your rewards and shine with your newfound chill.</p>
+          </div>
         </div>
       </div>
     </section>
     
-    <!-- More Section -->
+    <!-- FAQ Section with Image Placeholder and Search -->
+    <section id="faq">
+      <h2>FAQ – Silly Answers to Wake You Up</h2>
+      <p class="section-subtitle">Got questions? We’ve got the answers—straight from our nap masters!</p>
+      <!-- Image placeholder in FAQ section -->
+      <div class="faq-image">
+        <img src="assets/images/sections/FAQ.webp" alt="FAQ placeholder image" />
+      </div>
+      <input type="text" id="faqSearch" placeholder="Search FAQs" aria-label="Search FAQs" />
+      <div class="faq-container">
+        <!-- FAQ Item 1 -->
+        <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
+          <div class="faq-question">
+            Q: What is the LazyLlama Movement, really?
+            <span class="arrow" aria-hidden="true">▶</span>
+          </div>
+          <div class="faq-answer">
+            <p>A: It’s a rebellion against hustle culture—where napping is the highest form of art and productivity is so last century.</p>
+          </div>
+        </div>
+        <!-- FAQ Item 2 -->
+        <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
+          <div class="faq-question">
+            Q: Do I really earn money by sleeping?
+            <span class="arrow" aria-hidden="true">▶</span>
+          </div>
+          <div class="faq-answer">
+            <p>A: Absolutely! Every quality snooze turns into digital dough. Your pillow might just become your new bank vault.</p>
+          </div>
+        </div>
+        <!-- FAQ Item 3 -->
+        <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
+          <div class="faq-question">
+            Q: Is Chillaxium a legit cryptocurrency or just a nap fantasy?
+            <span class="arrow" aria-hidden="true">▶</span>
+          </div>
+          <div class="faq-answer">
+            <p>A: As real as your desire for a good snooze—crypto with a twist so you can literally sleep on your earnings!</p>
+          </div>
+        </div>
+        <!-- FAQ Item 4 -->
+        <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
+          <div class="faq-question">
+            Q: Can I nap anywhere and still cash in?
+            <span class="arrow" aria-hidden="true">▶</span>
+          </div>
+          <div class="faq-answer">
+            <p>A: Couch, hammock, park bench—if you can snooze, you can earn. Just don’t nap on your boss’s desk!</p>
+          </div>
+        </div>
+        <!-- FAQ Item 5 -->
+        <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
+          <div class="faq-question">
+            Q: How do I know if my nap is top-shelf?
+            <span class="arrow" aria-hidden="true">▶</span>
+          </div>
+          <div class="faq-answer">
+            <p>A: Our smart tracker gives you a digital high-five when you nap like a champion.</p>
+          </div>
+        </div>
+        <!-- FAQ Item 6 -->
+        <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
+          <div class="faq-question">
+            Q: What if I oversleep and miss my dreams?
+            <span class="arrow" aria-hidden="true">▶</span>
+          </div>
+          <div class="faq-answer">
+            <p>A: Oversleeping is your body’s way of saying “I’m too cool to be woken up!” Embrace your inner sloth.</p>
+          </div>
+        </div>
+        <!-- FAQ Item 7 -->
+        <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
+          <div class="faq-question">
+            Q: I’m not a llama fanatic—can I still join?
+            <span class="arrow" aria-hidden="true">▶</span>
+          </div>
+          <div class="faq-answer">
+            <p>A: Of course! Whether you’re a die-hard llama lover or just love a good nap, you belong in our chill club.</p>
+          </div>
+        </div>
+        <!-- FAQ Item 8 -->
+        <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
+          <div class="faq-question">
+            Q: Will joining LazyLlama make me a professional napper?
+            <span class="arrow" aria-hidden="true">▶</span>
+          </div>
+          <div class="faq-answer">
+            <p>A: Only if you let your inner sloth shine—nap like a pro and watch the compliments roll in!</p>
+          </div>
+        </div>
+        <!-- FAQ Item 9 -->
+        <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
+          <div class="faq-question">
+            Q: What if I start dreaming about work?
+            <span class="arrow" aria-hidden="true">▶</span>
+          </div>
+          <div class="faq-answer">
+            <p>A: Then you’re in a bizarre world where productivity meets pillow time. It’s the ultimate paradox!</p>
+          </div>
+        </div>
+        <!-- FAQ Item 10 -->
+        <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
+          <div class="faq-question">
+            Q: Are there side effects of too much chill?
+            <span class="arrow" aria-hidden="true">▶</span>
+          </div>
+          <div class="faq-answer">
+            <p>A: You might develop spontaneous giggles, an addiction to pajama days, and zero interest in alarm clocks.</p>
+          </div>
+        </div>
+        <!-- FAQ Item 11 -->
+        <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
+          <div class="faq-question">
+            Q: Can I work while I nap, or is that too ambitious?
+            <span class="arrow" aria-hidden="true">▶</span>
+          </div>
+          <div class="faq-answer">
+            <p>A: Multitasking dreams and deadlines rarely mix—focus on your snooze and let productivity take a nap too!</p>
+          </div>
+        </div>
+        <!-- FAQ Item 12 -->
+        <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
+          <div class="faq-question">
+            Q: What if my boss catches me napping?
+            <span class="arrow" aria-hidden="true">▶</span>
+          </div>
+          <div class="faq-answer">
+            <p>A: Simply tell them you’re pioneering “power napping” for creative breakthroughs. It might just catch on!</p>
+          </div>
+        </div>
+        <!-- FAQ Item 13 -->
+        <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
+          <div class="faq-question">
+            Q: Does every nap make my wallet fatter?
+            <span class="arrow" aria-hidden="true">▶</span>
+          </div>
+          <div class="faq-answer">
+            <p>A: Every quality snooze earns you Chillaxium—imagine your lazy bank account growing while you dream.</p>
+          </div>
+        </div>
+        <!-- FAQ Item 14 -->
+        <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
+          <div class="faq-question">
+            Q: How do I upgrade my chill to legendary status?
+            <span class="arrow" aria-hidden="true">▶</span>
+          </div>
+          <div class="faq-answer">
+            <p>A: Keep napping, laughing, and sharing the LazyLlama love. Legendary chill is earned one snooze at a time!</p>
+          </div>
+        </div>
+        <!-- FAQ Item 15 -->
+        <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
+          <div class="faq-question">
+            Q: Will napping make me forget my responsibilities?
+            <span class="arrow" aria-hidden="true">▶</span>
+          </div>
+          <div class="faq-answer">
+            <p>A: Only if you let your inner sloth take over—just don’t forget where you left your coffee!</p>
+          </div>
+        </div>
+        <!-- FAQ Item 16 -->
+        <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
+          <div class="faq-question">
+            Q: Is there a limit to how chill I can be?
+            <span class="arrow" aria-hidden="true">▶</span>
+          </div>
+          <div class="faq-answer">
+            <p>A: There’s no cap on chill—nap as if there’s no tomorrow!</p>
+          </div>
+        </div>
+        <!-- FAQ Item 17 -->
+        <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
+          <div class="faq-question">
+            Q: Can I pay my bills with Chillaxium?
+            <span class="arrow" aria-hidden="true">▶</span>
+          </div>
+          <div class="faq-answer">
+            <p>A: Not yet—but who knows? Maybe one day, napping will be the new currency of cool.</p>
+          </div>
+        </div>
+        <!-- FAQ Item 18 -->
+        <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
+          <div class="faq-question">
+            Q: What’s the secret to a perfect nap?
+            <span class="arrow" aria-hidden="true">▶</span>
+          </div>
+          <div class="faq-answer">
+            <p>A: A comfy spot, zero distractions, a cozy blanket—and a heavy dose of LazyLlama attitude!</p>
+          </div>
+        </div>
+        <!-- FAQ Item 19 -->
+        <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
+          <div class="faq-question">
+            Q: Is napping a competitive sport now?
+            <span class="arrow" aria-hidden="true">▶</span>
+          </div>
+          <div class="faq-answer">
+            <p>A: In our world, it’s the ultimate competition—train hard (or hardly train) and join the ranks of nap champions!</p>
+          </div>
+        </div>
+        <!-- FAQ Item 20 -->
+        <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
+          <div class="faq-question">
+            Q: Can I trade naps for snacks?
+            <span class="arrow" aria-hidden="true">▶</span>
+          </div>
+          <div class="faq-answer">
+            <p>A: If only! For now, dream big and maybe someday we’ll launch a snack exchange program.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- More Section (includes Dashboard Block) -->
     <section id="more">
       <h2>More – Extra Ways to Embrace the Chill</h2>
       <figure class="image-wrapper">
-        <img src="assets/images/sections/more-ways-to-chill.webp" alt="A playful illustration of a llama relaxing in a hammock" loading="lazy">
+        <img src="assets/images/sections/more-ways-to-chill.webp" alt="A playful illustration of a llama relaxing in a hammock" loading="lazy" />
       </figure>
-      <p>
-        Explore even more fabulous ways to get your chill on:
-      </p>
-      <!-- Anchor links in the More section -->
-      <a href="#nap-to-earn" class="cta-button">Nap-to-Earn</a>
-      <a href="#chill-currency" class="cta-button">Chill Currency</a>
-      <a href="#stake" class="cta-button">Stake</a>
-      <a href="#merchandise" class="cta-button">Merchandise</a>
-      <a href="#events" class="cta-button">Events</a>
+      <div class="text-content">
+        <p>Explore even more fabulous ways to get your chill on:</p>
+        <a href="#nap-to-earn" class="cta-button">Nap-to-Earn</a>
+        <a href="#chill-currency" class="cta-button">Chill Currency</a>
+        <a href="#stake" class="cta-button">Stake</a>
+        <a href="#merchandise" class="cta-button">Merchandise</a>
+        <a href="#events" class="cta-button">Events</a>
+      </div>
+      <div class="dashboard-more text-content">
+        <h3>Your Nap Statistics</h3>
+        <p id="napStats">Loading your nap stats...</p>
+      </div>
     </section>
     
     <!-- Nap-to-Earn Section -->
@@ -175,14 +412,14 @@
       <h2>Nap-to-Earn – Because Sleeping Should Pay the Bills</h2>
       <div class="nap-container">
         <figure class="image-wrapper nap-image">
-          <img src="assets/images/sections/nap-to-earn.webp" alt="A happy llama snoozing on a pile of golden coins" loading="lazy">
+          <img src="assets/images/sections/nap-to-earn.webp" alt="A happy llama snoozing on a pile of golden coins" loading="lazy" />
         </figure>
-        <div class="nap-details">
+        <div class="nap-details text-content">
           <p>
             Imagine a world where your zzz’s turn into digital dough. Stop daydreaming—start napping and watch the rewards roll in.
           </p>
           <ul>
-            <li><strong>Track Your Zzz’s:</strong> Our smart sleep tracker gives you a virtual high-five every time you nap like a champ.</li>
+            <li><strong>Track Your Zzz’s:</strong> Our smart sleep tracker gives you a digital high-five every time you nap like a champ.</li>
             <li><strong>Earn Chillaxium:</strong> Every power nap earns you Chillaxium – the laziest crypto on the block.</li>
             <li><strong>Redeem Your Rewards:</strong> Use Chillaxium for exclusive swag, VIP events, and other ultra-cool perks.</li>
           </ul>
@@ -196,9 +433,9 @@
       <h2>Chill Currency – Because Your Chill Deserves Its Own Economy</h2>
       <div class="currency-container">
         <figure class="image-wrapper currency-image">
-          <img src="assets/images/sections/chill-currency.webp" alt="A futuristic coin shaped like a llama head" loading="lazy">
+          <img src="assets/images/sections/chill-currency.webp" alt="A futuristic coin shaped like a llama head" loading="lazy" />
         </figure>
-        <div class="currency-details">
+        <div class="currency-details text-content">
           <p>
             Chillaxium is our digital currency for all things chill. Earn it by napping, and then spend it on things that make you smile (or snicker).
           </p>
@@ -217,9 +454,9 @@
       <h2>Stake – Invest in Your Own Laziness</h2>
       <div class="stake-container">
         <figure class="image-wrapper stake-image">
-          <img src="assets/images/sections/staking.webp" alt="A llama surrounded by charts, proudly staking its Chillaxium" loading="lazy">
+          <img src="assets/images/sections/staking.webp" alt="A llama surrounded by charts, proudly staking its Chillaxium" loading="lazy" />
         </figure>
-        <div class="stake-details">
+        <div class="stake-details text-content">
           <p>
             Why work when you can stake your Chillaxium? Lock up your funds, sit back, and watch your assets grow while you enjoy your well-earned nap.
           </p>
@@ -238,9 +475,9 @@
       <h2>Merchandise – Wear Your Chill with Pride</h2>
       <div class="merch-container">
         <figure class="image-wrapper merch-image">
-          <img src="assets/images/sections/merchandise.webp" alt="A cool spread of LazyLlama merchandise: hoodies, caps, and mugs" loading="lazy">
+          <img src="assets/images/sections/merchandise.webp" alt="A cool spread of LazyLlama merchandise: hoodies, caps, and mugs" loading="lazy" />
         </figure>
-        <div class="merch-details">
+        <div class="merch-details text-content">
           <p>
             Flaunt your LazyLlama spirit with exclusive swag. Our merchandise is as unique—and as chill—as you are.
           </p>
@@ -261,314 +498,117 @@
       <div class="events-grid">
         <div class="event-card">
           <figure class="image-wrapper">
-            <img src="assets/images/sections/nap_off.webp" alt="The Great Annual Nap-Off event" loading="lazy">
+            <img src="assets/images/sections/nap_off.webp" alt="The Great Annual Nap-Off event" loading="lazy" />
             <figcaption>Nap-Off</figcaption>
           </figure>
-          <p><em>March 15, 2025</em></p>
-          <p>Compete in the ultimate snooze contest. Winner gets bragging rights and a plush llama!</p>
+          <div class="text-content">
+            <p><em>March 15, 2025</em></p>
+            <p>Compete in the ultimate snooze contest. Winner gets bragging rights and a plush llama!</p>
+          </div>
           <button class="cta-button rsvpButton" aria-label="RSVP Now">RSVP Now!</button>
         </div>
         <div class="event-card">
           <figure class="image-wrapper">
-            <img src="assets/images/sections/chill_spill.webp" alt="Chill & Spill – Virtual Hangout" loading="lazy">
+            <img src="assets/images/sections/chill_spill.webp" alt="Chill & Spill – Virtual Hangout" loading="lazy" />
             <figcaption>Chill & Spill</figcaption>
           </figure>
-          <p><em>April 8, 2025</em></p>
-          <p>Join our virtual hangout where brilliant ideas and hilarious banter meet.</p>
+          <div class="text-content">
+            <p><em>April 8, 2025</em></p>
+            <p>Join our virtual hangout where brilliant ideas and hilarious banter meet.</p>
+          </div>
           <button class="cta-button rsvpButton" aria-label="RSVP Now">RSVP Now!</button>
         </div>
         <div class="event-card">
           <figure class="image-wrapper">
-            <img src="assets/images/sections/llamapalooza.webp" alt="LlamaPalooza – The ultimate chill fest" loading="lazy">
+            <img src="assets/images/sections/llamapalooza.webp" alt="LlamaPalooza – The ultimate chill fest" loading="lazy" />
             <figcaption>LlamaPalooza</figcaption>
           </figure>
-          <p><em>July 22, 2025</em></p>
-          <p>Live music, games, and enough chill vibes to make even the busiest person hit pause.</p>
+          <div class="text-content">
+            <p><em>July 22, 2025</em></p>
+            <p>Live music, games, and enough chill vibes to make even the busiest person hit pause.</p>
+          </div>
           <button class="cta-button rsvpButton" aria-label="RSVP Now">RSVP Now!</button>
         </div>
       </div>
     </section>
     
-    <!-- FAQ Section with 20 Funny Items -->
-    <section id="faq">
-      <h2>FAQ – Silly Answers to Wake You Up</h2>
-      <div class="faq-container">
-        <!-- FAQ Item 1 -->
-        <div class="faq-item">
-          <div class="faq-question">
-            Q: What is the LazyLlama Movement, really?
-            <span class="arrow">▶</span>
-          </div>
-          <div class="faq-answer">
-            <p>A: It’s a rebellion against hustle culture—where napping is the highest form of art and productivity is so last century.</p>
-          </div>
-        </div>
-        <!-- FAQ Item 2 -->
-        <div class="faq-item">
-          <div class="faq-question">
-            Q: Do I really earn money by sleeping?
-            <span class="arrow">▶</span>
-          </div>
-          <div class="faq-answer">
-            <p>A: Absolutely! Every quality snooze turns into digital dough. Your pillow might just become your new bank vault.</p>
-          </div>
-        </div>
-        <!-- FAQ Item 3 -->
-        <div class="faq-item">
-          <div class="faq-question">
-            Q: Is Chillaxium a legit cryptocurrency or just a nap fantasy?
-            <span class="arrow">▶</span>
-          </div>
-          <div class="faq-answer">
-            <p>A: As real as your desire for a good snooze—crypto with a twist so you can literally sleep on your earnings!</p>
-          </div>
-        </div>
-        <!-- FAQ Item 4 -->
-        <div class="faq-item">
-          <div class="faq-question">
-            Q: Can I nap anywhere and still cash in?
-            <span class="arrow">▶</span>
-          </div>
-          <div class="faq-answer">
-            <p>A: Couch, hammock, park bench—if you can snooze, you can earn. Just don’t nap on your boss’s desk!</p>
-          </div>
-        </div>
-        <!-- FAQ Item 5 -->
-        <div class="faq-item">
-          <div class="faq-question">
-            Q: How do I know if my nap is top-shelf?
-            <span class="arrow">▶</span>
-          </div>
-          <div class="faq-answer">
-            <p>A: Our smart tracker gives you a digital high-five when you nap like a champion.</p>
-          </div>
-        </div>
-        <!-- FAQ Item 6 -->
-        <div class="faq-item">
-          <div class="faq-question">
-            Q: What if I oversleep and miss my dreams?
-            <span class="arrow">▶</span>
-          </div>
-          <div class="faq-answer">
-            <p>A: Oversleeping is your body’s way of saying “I’m too cool to be woken up!” Embrace your inner sloth.</p>
-          </div>
-        </div>
-        <!-- FAQ Item 7 -->
-        <div class="faq-item">
-          <div class="faq-question">
-            Q: I’m not a llama fanatic—can I still join?
-            <span class="arrow">▶</span>
-          </div>
-          <div class="faq-answer">
-            <p>A: Of course! Whether you’re a die-hard llama lover or just love a good nap, you belong in our chill club.</p>
-          </div>
-        </div>
-        <!-- FAQ Item 8 -->
-        <div class="faq-item">
-          <div class="faq-question">
-            Q: Will joining LazyLlama make me a professional napper?
-            <span class="arrow">▶</span>
-          </div>
-          <div class="faq-answer">
-            <p>A: Only if you let your inner sloth shine—nap like a pro and watch the compliments roll in!</p>
-          </div>
-        </div>
-        <!-- FAQ Item 9 -->
-        <div class="faq-item">
-          <div class="faq-question">
-            Q: What if I start dreaming about work?
-            <span class="arrow">▶</span>
-          </div>
-          <div class="faq-answer">
-            <p>A: Then you’re in a bizarre world where productivity meets pillow time. It’s the ultimate paradox!</p>
-          </div>
-        </div>
-        <!-- FAQ Item 10 -->
-        <div class="faq-item">
-          <div class="faq-question">
-            Q: Are there side effects of too much chill?
-            <span class="arrow">▶</span>
-          </div>
-          <div class="faq-answer">
-            <p>A: You might develop spontaneous giggles, an addiction to pajama days, and zero interest in alarm clocks.</p>
-          </div>
-        </div>
-        <!-- FAQ Item 11 -->
-        <div class="faq-item">
-          <div class="faq-question">
-            Q: Can I work while I nap, or is that too ambitious?
-            <span class="arrow">▶</span>
-          </div>
-          <div class="faq-answer">
-            <p>A: Multitasking dreams and deadlines rarely mix—focus on your snooze and let productivity take a nap too!</p>
-          </div>
-        </div>
-        <!-- FAQ Item 12 -->
-        <div class="faq-item">
-          <div class="faq-question">
-            Q: What if my boss catches me napping?
-            <span class="arrow">▶</span>
-          </div>
-          <div class="faq-answer">
-            <p>A: Simply tell them you’re pioneering “power napping” for creative breakthroughs. It might just catch on!</p>
-          </div>
-        </div>
-        <!-- FAQ Item 13 -->
-        <div class="faq-item">
-          <div class="faq-question">
-            Q: Does every nap make my wallet fatter?
-            <span class="arrow">▶</span>
-          </div>
-          <div class="faq-answer">
-            <p>A: Every quality snooze earns you Chillaxium—imagine your lazy bank account growing while you dream.</p>
-          </div>
-        </div>
-        <!-- FAQ Item 14 -->
-        <div class="faq-item">
-          <div class="faq-question">
-            Q: How do I upgrade my chill to legendary status?
-            <span class="arrow">▶</span>
-          </div>
-          <div class="faq-answer">
-            <p>A: Keep napping, laughing, and sharing the LazyLlama love. Legendary chill is earned one snooze at a time!</p>
-          </div>
-        </div>
-        <!-- FAQ Item 15 -->
-        <div class="faq-item">
-          <div class="faq-question">
-            Q: Will napping make me forget my responsibilities?
-            <span class="arrow">▶</span>
-          </div>
-          <div class="faq-answer">
-            <p>A: Only if you let your inner sloth take over—just don’t forget where you left your coffee!</p>
-          </div>
-        </div>
-        <!-- FAQ Item 16 -->
-        <div class="faq-item">
-          <div class="faq-question">
-            Q: Is there a limit to how chill I can be?
-            <span class="arrow">▶</span>
-          </div>
-          <div class="faq-answer">
-            <p>A: There’s no cap on chill—nap as if there’s no tomorrow!</p>
-          </div>
-        </div>
-        <!-- FAQ Item 17 -->
-        <div class="faq-item">
-          <div class="faq-question">
-            Q: Can I pay my bills with Chillaxium?
-            <span class="arrow">▶</span>
-          </div>
-          <div class="faq-answer">
-            <p>A: Not yet—but who knows? Maybe one day, napping will be the new currency of cool.</p>
-          </div>
-        </div>
-        <!-- FAQ Item 18 -->
-        <div class="faq-item">
-          <div class="faq-question">
-            Q: What’s the secret to a perfect nap?
-            <span class="arrow">▶</span>
-          </div>
-          <div class="faq-answer">
-            <p>A: A comfy spot, zero distractions, a cozy blanket—and a heavy dose of LazyLlama attitude!</p>
-          </div>
-        </div>
-        <!-- FAQ Item 19 -->
-        <div class="faq-item">
-          <div class="faq-question">
-            Q: Is napping a competitive sport now?
-            <span class="arrow">▶</span>
-          </div>
-          <div class="faq-answer">
-            <p>A: In our world, it’s the ultimate competition—train hard (or hardly train) and join the ranks of nap champions!</p>
-          </div>
-        </div>
-        <!-- FAQ Item 20 -->
-        <div class="faq-item">
-          <div class="faq-question">
-            Q: Can I trade naps for snacks?
-            <span class="arrow">▶</span>
-          </div>
-          <div class="faq-answer">
-            <p>A: If only! For now, dream big and maybe someday we’ll launch a snack exchange program.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- Join Section with Donation Integration -->
+    <!-- Join Section -->
     <section id="join">
       <h2>Join – Become a Part of the Chill Revolution</h2>
       <figure class="image-wrapper">
-        <img src="assets/images/sections/Join.webp" alt="Join the LazyLlama movement" loading="lazy">
+        <img src="assets/images/sections/Join.webp" alt="Join the LazyLlama movement" loading="lazy" />
       </figure>
-      <p>
-        Ready to level up your laziness and join the revolution? Connect your crypto wallet now to unlock the secrets of supreme chill.
-        (Make sure you have MetaMask or a similar wallet installed.)
-      </p>
+      <div class="text-content">
+        <p>
+          Ready to level up your laziness and join the revolution? Connect your crypto wallet now to unlock the secrets of supreme chill.
+          (Make sure you have MetaMask or a similar wallet installed.)
+        </p>
+      </div>
       <button id="joinWalletButton" class="cta-button" aria-label="Join Now">Join Now!</button>
       <!-- Donation Section (hidden by default) -->
-      <div id="donationSection" style="display: none; margin-top: 1rem;">
-        <p>How much nap fuel would you like to donate? (Enter ETH amount)</p>
-        <input type="number" id="customDonation" placeholder="e.g., 0.01" step="0.001" min="0" style="padding: 0.5rem; font-size: 1rem; margin-bottom: 1rem;">
+      <div id="donationSection" class="hidden">
+        <label for="customDonation">Donation Amount (ETH):</label>
+        <input type="number" id="customDonation" placeholder="e.g., 0.01" step="0.001" min="0" />
         <div class="donation-options">
           <label>
-            <input type="radio" name="donationAmount" value="0.001">
+            <input type="radio" name="donationAmount" value="0.001" />
             Micro Nap (0.001 ETH)
           </label>
           <label>
-            <input type="radio" name="donationAmount" value="0.005">
+            <input type="radio" name="donationAmount" value="0.005" />
             Power Nap (0.005 ETH)
           </label>
           <label>
-            <input type="radio" name="donationAmount" value="0.01">
+            <input type="radio" name="donationAmount" value="0.01" />
             Mega Nap (0.01 ETH)
           </label>
           <label>
-            <input type="radio" name="donationAmount" value="0.05">
+            <input type="radio" name="donationAmount" value="0.05" />
             Chill Nap (0.05 ETH)
           </label>
           <label>
-            <input type="radio" name="donationAmount" value="0.1">
+            <input type="radio" name="donationAmount" value="0.1" />
             Legendary Nap (0.1 ETH)
           </label>
         </div>
         <p class="donation-note">
           Every nap fuel you donate is forever recorded in our sacred LazyLlama Ledger. If this revolution takes off, expect rewards as legendary as exclusive llama swag, digital Chillaxium, and eternal bragging rights. Your donation isn’t just appreciated—it’s history in the making!
         </p>
-        <button id="donateButton" class="cta-button" aria-label="Donate & Fuel the Chill">Donate &amp; Fuel the Chill</button>
+        <button id="donateButton" class="cta-button" aria-label="Donate &amp; Fuel the Chill">Donate &amp; Fuel the Chill</button>
       </div>
     </section>
     
-    <!-- Contact Section with Email Integration -->
+    <!-- Contact Section -->
     <section id="contact">
       <h2>Contact Us – We’ll Respond (After a Quick Nap)</h2>
-      <p>
-        Got a killer llama pun or a burning question? Drop us a line, and our team of chill experts will get back to you (after a quick snooze, of course).
-      </p>
-      <form id="contactForm">
+      <div class="text-content">
+        <p>
+          Got a killer llama pun or a burning question? Drop us a line, and our team of chill experts will get back to you (after a quick snooze, of course).
+        </p>
+      </div>
+      <form id="contactForm" novalidate>
         <label for="name">Your Name (or your coolest alias):</label>
-        <input type="text" id="name" name="name" required>
-        
+        <input type="text" id="name" name="name" required />
+
         <label for="email">Your Email (we promise no spam, just snores):</label>
-        <input type="email" id="email" name="email" required>
-        
+        <input type="email" id="email" name="email" required />
+
         <label for="inquiryType">Inquiry Type:</label>
         <select id="inquiryType" name="inquiryType" required>
           <option value="general">General Inquiries</option>
           <option value="support">Customer Support</option>
           <option value="sales">Sales and Partnerships</option>
         </select>
-        
+
         <label for="message">Your Message (or your best llama joke):</label>
         <textarea id="message" name="message" rows="5" required></textarea>
-        
+
         <div class="contact-button-group">
           <button type="submit" class="cta-button" aria-label="Send Your Vibe">Send Your Vibe</button>
           <div class="contact-social-links">
-            <a href="https://x.com/Lazy_Chillbert" target="_blank" rel="noopener noreferrer">X</a>
-            <a href="https://www.facebook.com/profile.php?id=61572988047955" target="_blank" rel="noopener noreferrer">Facebook</a>
-            <a href="https://discord.gg/uKdB4GF5ph" target="_blank" rel="noopener noreferrer">Discord</a>
+            <a href="https://x.com/Lazy_Chillbert" target="_blank" rel="noopener noreferrer" aria-label="LazyLlama on X">X</a>
+            <a href="https://www.facebook.com/profile.php?id=61572988047955" target="_blank" rel="noopener noreferrer" aria-label="LazyLlama on Facebook">Facebook</a>
+            <a href="https://discord.gg/uKdB4GF5ph" target="_blank" rel="noopener noreferrer" aria-label="LazyLlama on Discord">Discord</a>
           </div>
         </div>
       </form>
@@ -576,17 +616,15 @@
   </main>
   
   <!-- Back to Top Button -->
-  <button id="backToTop" title="Back to Top">↑</button>
+  <button id="backToTop" title="Back to Top" aria-label="Back to Top">↑</button>
   
-  <!-- Footer with Disclaimer -->
-  <footer>
-    <p>&copy; 2025 LazyLlama Movement. All rights reserved. Stay lazy, stay hilarious.</p>
-    <div class="disclaimer-container">
-      <p class="disclaimer">
-        Disclaimer: This site is 100% for entertainment. All images are placeholders—no llamas, naps, or chill vibes were harmed in the making of this masterpiece. Nap hard, laugh harder, and remember: your chill is your own adventure!
-      </p>
+  <!-- Modal Popup for "Under Development" Messages -->
+  <div id="modalPopup" class="modal hidden">
+    <div class="modal-content">
+      <p id="modalMessage"></p>
+      <button id="modalClose" class="cta-button">Close</button>
     </div>
-  </footer>
+  </div>
   
   <!-- External JavaScript -->
   <script src="assets/js/script.js" defer></script>

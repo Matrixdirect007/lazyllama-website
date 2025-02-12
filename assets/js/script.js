@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Wallet Connection for "Join Now!" Button.
+  // Wallet Connection for "Join Now!" Button with Donation Section Reveal
   async function connectWallet() {
     if (typeof window.ethereum !== 'undefined') {
       try {
@@ -174,11 +174,14 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("Connected account:", accounts[0]);
         alert("Wallet connected successfully!");
         walletConnected = true;
-        // Show donation and feedback sections.
-        document.getElementById('donationSection').classList.remove('hidden');
-        document.getElementById('feedbackSection').style.display = 'block';
-        // Update dashboard (within More section) with dummy nap stats
-        updateDashboard();
+        const donationSection = document.getElementById('donationSection');
+        if (donationSection) {
+          donationSection.style.display = 'block';
+        }
+        const feedbackSection = document.getElementById('feedbackSection');
+        if (feedbackSection) {
+          feedbackSection.style.display = 'block';
+        }
       } catch (error) {
         console.error("Wallet connection error:", error);
         alert("Connection request rejected or failed.");
@@ -187,9 +190,82 @@ document.addEventListener('DOMContentLoaded', () => {
       alert("MetaMask is not installed. Please install MetaMask to join the revolution.");
     }
   }
+
   const joinWalletButton = document.getElementById('joinWalletButton');
   if (joinWalletButton) {
     joinWalletButton.addEventListener('click', connectWallet);
+  }
+
+  // Helper: Resolve ENS Name
+  async function resolveENS(ensName) {
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const resolvedAddress = await provider.resolveName(ensName);
+      console.log("Resolved ENS Address:", resolvedAddress);
+      return resolvedAddress;
+    } catch (error) {
+      console.error("ENS resolution failed:", error);
+      return null;
+    }
+  }
+
+  // Donation Integration: Use custom donation input if provided, else use preset radio buttons
+  const donateButton = document.getElementById('donateButton');
+  if (donateButton) {
+    donateButton.addEventListener('click', async () => {
+      if (!walletConnected) {
+        alert("Please connect your wallet first.");
+        return;
+      }
+
+      // Check if ethers.js is available
+      if (typeof ethers === 'undefined') {
+        alert("Ethers.js library is not loaded. Please check your network connection and script inclusion.");
+        return;
+      }
+
+      // Get donation amount from custom input
+      let donationAmountEth = parseFloat(document.getElementById('customDonation')?.value) || null;
+      // If no custom donation provided, check preset radio buttons
+      if (!donationAmountEth) {
+        const donationRadios = document.getElementsByName('donationAmount');
+        Array.from(donationRadios).forEach(radio => {
+          if (radio.checked) donationAmountEth = parseFloat(radio.value);
+        });
+      }
+      if (!donationAmountEth || donationAmountEth <= 0) {
+        alert("Please enter a valid donation amount in ETH.");
+        return;
+      }
+      try {
+        // Convert ETH to Wei using ethers.js
+        const donationAmountWei = ethers.utils.parseEther(donationAmountEth.toString());
+        
+        // Use the donation address (replace with ENS resolution if needed)
+        const donationAddress = "0xc0C2196bBa2ac923564DBa39eb61A170d66620b1";
+        if (!donationAddress) {
+          alert("Failed to resolve donation address. Please try again later.");
+          return;
+        }
+        
+        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+        const fromAddress = accounts[0];
+        const txParams = {
+          from: fromAddress,
+          to: donationAddress,
+          value: donationAmountWei.toHexString(), // Convert to hex string for MetaMask
+          gas: ethers.utils.hexlify(21000) // Convert gas limit to a hex string
+        };
+        const txHash = await window.ethereum.request({
+          method: 'eth_sendTransaction',
+          params: [txParams],
+        });
+        alert(`Donation successful! Your ${donationAmountEth} ETH donation is fueling the nap revolution. Transaction hash: ${txHash}`);
+      } catch (error) {
+        console.error("Donation error:", error);
+        alert("Donation failed: " + error.message);
+      }
+    });
   }
 
   // Dummy Dashboard Update (simulate blockchain integration)
@@ -206,69 +282,6 @@ document.addEventListener('DOMContentLoaded', () => {
       Chillaxium Earned: ${dummyData.chillaxiumEarned}<br>
       Average Nap Duration: ${dummyData.averageNapDuration}
     `;
-  }
-
-  // ENS Resolution Helper (Optional)
-  async function resolveENS(ensName) {
-    try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const resolvedAddress = await provider.resolveName(ensName);
-      console.log("Resolved ENS Address:", resolvedAddress);
-      return resolvedAddress;
-    } catch (error) {
-      console.error("ENS resolution failed:", error);
-      return null;
-    }
-  }
-
-  // Donation Integration: Handle donation submission using ethers.js.
-  const donateButton = document.getElementById('donateButton');
-  if (donateButton) {
-    donateButton.addEventListener('click', async () => {
-      if (!walletConnected) {
-        alert("Please connect your wallet first.");
-        return;
-      }
-      if (typeof ethers === 'undefined') {
-        alert("Ethers.js library is not loaded. Please check your network connection.");
-        return;
-      }
-      let donationAmountEth = parseFloat(document.getElementById('customDonation')?.value) || null;
-      if (!donationAmountEth) {
-        const donationRadios = document.getElementsByName('donationAmount');
-        Array.from(donationRadios).forEach(radio => {
-          if (radio.checked) donationAmountEth = parseFloat(radio.value);
-        });
-      }
-      if (!donationAmountEth || donationAmountEth <= 0) {
-        alert("Please enter a valid donation amount in ETH.");
-        return;
-      }
-      try {
-        const donationAmountWei = ethers.utils.parseEther(donationAmountEth.toString());
-        const donationAddress = "0xc0C2196bBa2ac923564DBa39eb61A170d66620b1";
-        if (!donationAddress) {
-          alert("Failed to resolve donation address. Please try again later.");
-          return;
-        }
-        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-        const fromAddress = accounts[0];
-        const txParams = {
-          from: fromAddress,
-          to: donationAddress,
-          value: donationAmountWei.toHexString(),
-          gas: ethers.utils.hexlify(21000)
-        };
-        const txHash = await window.ethereum.request({
-          method: 'eth_sendTransaction',
-          params: [txParams],
-        });
-        alert(`Donation successful! Your ${donationAmountEth} ETH donation is fueling the nap revolution. Transaction hash: ${txHash}`);
-      } catch (error) {
-        console.error("Donation error:", error);
-        alert("Donation failed: " + error.message);
-      }
-    });
   }
 
   // Contact Form Submission: Construct a mailto link.

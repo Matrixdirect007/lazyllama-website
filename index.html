@@ -44,9 +44,11 @@
   <!-- Content Security Policy -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.countapi.xyz;" />
   
-  <!-- Ethers.js Library with SRI (replace the integrity hash with the correct one) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.1/ethers.umd.min.js" type="application/javascript" async
-          integrity="sha384-REPLACE_WITH_VALID_HASH" crossorigin="anonymous"></script>
+  <!-- Load ethers.js first -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.1/ethers.umd.min.js" type="application/javascript" crossorigin="anonymous"></script>
+  
+  <!-- Then load your custom script -->
+  <script src="assets/js/script.js" defer></script>
 </head>
 <body>
   <!-- Skip Navigation Link -->
@@ -63,7 +65,7 @@
           <li><a href="#how-it-works">How It Works</a></li>
           <li><a href="#faq">FAQ</a></li>
           <li><a href="#more">More</a></li>
-          <li class="join"><a href="#join">Join</a></li>
+          <li><a href="#join">Join</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
         <!-- Menu toggle displays the word "Menu" -->
@@ -625,9 +627,6 @@
       <button id="modalClose" class="cta-button">Close</button>
     </div>
   </div>
-  
-  <!-- External JavaScript -->
-  <script src="assets/js/script.js" defer></script>
 </body>
 </html>
 

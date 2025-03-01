@@ -13,6 +13,7 @@
   --spacing-sm: 1rem;
   --spacing-md: 2rem;
   --spacing-lg: 3rem;
+  --image-max-width: 600px; /* Global max width for images */
 }
 
 /* Helper class to hide elements */
@@ -60,18 +61,32 @@ body {
   top: 0;
 }
 
+/* Global image styling for consistent sizing */
+img {
+  display: block;
+  width: 100%;
+  max-width: var(--image-max-width);
+  height: auto;
+  margin: 0 auto;
+}
+
 /* Image Wrapper */
 .image-wrapper {
   margin: var(--spacing-md) auto;
 }
 .image-wrapper img {
-  max-width: 100%;
-  height: auto;
+  /* Inherit global sizing; additional styles below */
   border: 2px solid var(--accent-color);
   border-radius: var(--border-radius);
   box-shadow: 3px 3px 0 var(--accent-color);
-  display: block;
 }
+@media screen and (max-width: 768px) {
+  img {
+    max-width: 90%; /* Adjust for smaller screens */
+  }
+}
+
+/* Image caption */
 .image-wrapper figcaption {
   font-size: 0.9rem;
   color: var(--accent-color);
@@ -115,7 +130,7 @@ section p, section li {
   text-align: center;
 }
 
-/* Generic text-content wrapper for centering and wrapping text */
+/* Generic text-content wrapper */
 .text-content {
   text-align: center;
   max-width: 800px;
@@ -188,7 +203,7 @@ ul.nav-links li.join a:focus {
   color: var(--base-bg);
 }
 
-/* Menu Toggle Button (text-based for mobile) */
+/* Menu Toggle Button */
 .menu-toggle {
   display: none;
   background: transparent;
@@ -197,8 +212,6 @@ ul.nav-links li.join a:focus {
   font-size: 1.2rem;
   cursor: pointer;
 }
-
-/* Mobile styles for Menu Toggle & Nav Links */
 @media screen and (max-width: 768px) {
   .menu-toggle {
     display: block;
@@ -225,7 +238,7 @@ ul.nav-links li.join a:focus {
   }
 }
 
-/* Section-specific Containers for image and text side-by-side */
+/* Section-specific Containers */
 .about-container,
 .nap-container,
 .currency-container,
@@ -264,7 +277,7 @@ ul.nav-links li.join a:focus {
   }
 }
 
-/* How It Works Section with Tabs and Placeholder Image */
+/* How It Works Section */
 #how-it-works {
   background: #fff9f3;
   padding: 3rem 1rem;
@@ -289,13 +302,13 @@ ul.nav-links li.join a:focus {
   margin: var(--spacing-md) auto;
 }
 .how-image img {
-  max-width: 100%;
-  height: auto;
+  /* Inherit global sizing; additional styles applied */
   border: 2px solid var(--accent-color);
   border-radius: var(--border-radius);
   box-shadow: 3px 3px 0 var(--accent-color);
 }
-/* Tabs */
+
+/* Tabs (for How It Works) */
 .tabs {
   margin-top: var(--spacing-md);
 }
@@ -327,7 +340,7 @@ ul.nav-links li.join a:focus {
   display: block;
 }
 
-/* FAQ Section with Image Placeholder */
+/* FAQ Section */
 #faq {
   padding: var(--spacing-lg) var(--spacing-md);
   background: var(--base-bg);
@@ -349,8 +362,7 @@ ul.nav-links li.join a:focus {
   margin-bottom: var(--spacing-md);
 }
 .faq-image img {
-  max-width: 100%;
-  height: auto;
+  /* Inherit global sizing; additional styles applied */
   border: 2px solid var(--accent-color);
   border-radius: var(--border-radius);
   box-shadow: 3px 3px 0 var(--accent-color);
@@ -399,7 +411,7 @@ ul.nav-links li.join a:focus {
   opacity: 1;
 }
 
-/* Dashboard Block (within More section) */
+/* Dashboard Block */
 .dashboard-more {
   margin-top: var(--spacing-lg);
   border-top: 2px solid var(--accent-color);
@@ -504,10 +516,14 @@ ul.nav-links li.join a:focus {
   cursor: pointer;
   border: none;
 }
+@keyframes bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
 .cta-button:hover,
 .cta-button:focus {
   background: #b00000;
-  transform: scale(1.1);
+  animation: bounce 0.5s;
 }
 
 /* Contact Social Links */
@@ -568,5 +584,100 @@ ul.nav-links li.join a:focus {
   }
 }
 
+/* High-Five Overlay */
+.high-five {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(11, 57, 84, 0.9);
+  color: #fff;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  font-size: 2rem;
+  z-index: 3000;
+  animation: fadeOut 2s forwards;
+}
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
 
+/* More Section (Reworked Similar to How It Works) */
+#more {
+  background: var(--base-bg);
+  padding: var(--spacing-lg) var(--spacing-md);
+  text-align: center;
+}
+#more h2 {
+  font-family: var(--heading-font);
+  font-size: 2.5rem;
+  margin-bottom: var(--spacing-md);
+  color: var(--accent-color);
+}
+#more .section-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: var(--spacing-lg);
+  color: var(--text-color);
+}
+.more-tabs {
+  margin-top: var(--spacing-md);
+}
+.more-tabs .tab-buttons {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+  flex-wrap: wrap;
+}
+.more-tabs .tab-buttons li {
+  list-style: none;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--accent-color);
+  color: var(--base-bg);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background var(--transition-speed), transform var(--transition-speed);
+}
+.more-tabs .tab-buttons li:hover,
+.more-tabs .tab-buttons li.active {
+  background: #b00000;
+  transform: scale(1.05);
+}
+.more-tabs .tab-content {
+  display: none;
+  padding: var(--spacing-md);
+}
+.more-tabs .tab-content.active {
+  display: block;
+}
+.more-tabs .tab-content img {
+  /* Inherit global sizing; additional styling applied */
+  border-radius: var(--border-radius);
+  margin-bottom: var(--spacing-sm);
+}
+.more-tabs .tab-content h3 {
+  font-family: var(--heading-font);
+  font-size: 1.8rem;
+  color: var(--accent-color);
+  margin-bottom: var(--spacing-xs);
+}
+.more-tabs .tab-content p {
+  font-size: 1.2rem;
+  color: var(--text-color);
+  margin-bottom: var(--spacing-sm);
+}
+.more-tabs .tab-content a.cta-button {
+  font-size: 1.2rem;
+  padding: 0.8rem 1.5rem;
+}
+#disclaimerLink {
+  background-color: #0b3954;
+  color: #fff;
+  font-size: 0.9rem;   /* Smaller font */
+  padding: 0.4rem 0.8rem;  /* Reduced padding */
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+}
 

@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let walletConnected = false;
   let selectedRating = null;
 
-  // Visitor Counter: Fetch visitor count from CountAPI.
+  // Visitor Counter
   fetch('https://api.countapi.xyz/hit/lazyllamademo.com/visits')
     .then(res => res.json())
     .then(data => {
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (counter) counter.innerText = 'N/A';
     });
 
-  // Menu Toggle (Mobile Navigation using the word "Menu")
+  // Menu Toggle
   const menuToggle = document.querySelector('.menu-toggle');
   const navLinks = document.querySelector('.nav-links');
   if (menuToggle && navLinks) {
@@ -26,14 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Navigation: Smooth scrolling and active state.
+  // Smooth Scrolling Navigation
   document.querySelectorAll('.nav-links li a').forEach(link => {
     link.addEventListener('click', function (e) {
       e.preventDefault();
-      // Remove active class from all sections and nav links
       document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
       document.querySelectorAll('.nav-links li a').forEach(navLink => navLink.classList.remove('active'));
-      
       const target = this.getAttribute('href');
       const targetSection = document.querySelector(target);
       if (targetSection) {
@@ -41,8 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
         targetSection.scrollIntoView({ behavior: 'smooth' });
       }
       this.classList.add('active');
-      
-      // Close mobile nav if open.
       if (navLinks.classList.contains('active')) {
         navLinks.classList.remove('active');
         menuToggle.setAttribute('aria-expanded', false);
@@ -50,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // "More" Section Buttons: Act like nav links.
+  // "More" Section Buttons (for links within More tabs)
   document.querySelectorAll('#more a.cta-button').forEach(link => {
     link.addEventListener('click', function (e) {
       e.preventDefault();
@@ -64,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // RSVP Buttons: Open mail client with prefilled details.
+  // RSVP Buttons
   document.querySelectorAll('.rsvpButton').forEach(btn => {
     btn.addEventListener('click', () => {
       const subject = encodeURIComponent("RSVP for Event");
@@ -73,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Under Development Buttons: Show a custom modal popup.
+  // Under Development Buttons
   const underDevButtons = ['startNappingButton', 'getChillCurrencyButton', 'startStakingButton', 'shopNowButton'];
   underDevButtons.forEach(id => {
     const btn = document.getElementById(id);
@@ -84,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Function to show modal popup with a custom message
+  // Show Modal Popup for Under Development messages
   function showModal(message) {
     const modal = document.getElementById('modalPopup');
     const modalMessage = document.getElementById('modalMessage');
@@ -92,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
     modal.classList.remove('hidden');
   }
 
-  // Close modal when the close button is clicked
+  // Close Modal Popup
   const modalClose = document.getElementById('modalClose');
   if (modalClose) {
     modalClose.addEventListener('click', () => {
@@ -100,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // FAQ Toggle Functionality.
+  // FAQ Toggle
   document.querySelectorAll('.faq-item').forEach(item => {
     const toggleFaq = () => {
       const isActive = item.classList.toggle('active');
@@ -114,36 +110,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // FAQ Search Functionality
+  // FAQ Search
   const faqSearch = document.getElementById('faqSearch');
   if (faqSearch) {
     faqSearch.addEventListener('input', function () {
       const searchTerm = this.value.toLowerCase();
       document.querySelectorAll('.faq-item').forEach(item => {
         const questionText = item.querySelector('.faq-question').innerText.toLowerCase();
-        if (questionText.includes(searchTerm)) {
-          item.style.display = "block";
-        } else {
-          item.style.display = "none";
-        }
+        item.style.display = questionText.includes(searchTerm) ? "block" : "none";
       });
     });
   }
 
-  // Tab functionality for How It Works section
+  // Tab Functionality for How It Works section
   const tabButtons = document.querySelectorAll('.tab-buttons li');
   const tabContents = document.querySelectorAll('.tab-content');
   tabButtons.forEach(button => {
     button.addEventListener('click', function() {
-      // Remove active class from all tab buttons
       tabButtons.forEach(btn => btn.classList.remove('active'));
-      // Add active class to clicked button
       this.classList.add('active');
-      // Get tab data attribute
       const tabId = this.getAttribute('data-tab');
-      // Hide all tab contents
       tabContents.forEach(content => content.classList.remove('active'));
-      // Show corresponding tab content
       const activeContent = document.getElementById(tabId);
       if(activeContent) {
           activeContent.classList.add('active');
@@ -151,7 +138,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Back to Top Button: Show when scrolled down.
+  // Tab Functionality for More section (Reworked Like How It Works)
+  const moreTabButtons = document.querySelectorAll('.more-tabs .tab-buttons li');
+  const moreTabContents = document.querySelectorAll('.more-tabs .tab-content');
+  moreTabButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      moreTabButtons.forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      const tabId = this.getAttribute('data-tab');
+      moreTabContents.forEach(content => content.classList.remove('active'));
+      const activeContent = document.getElementById(tabId);
+      if(activeContent) {
+          activeContent.classList.add('active');
+      }
+    });
+  });
+
+  // Back to Top Button
   const backToTop = document.getElementById('backToTop');
   if (backToTop) {
     window.addEventListener('scroll', () => {
@@ -166,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Wallet Connection for "Join Now!" Button with Donation Section Reveal
+  // Wallet Connection for "Join Now!" Button
   async function connectWallet() {
     if (typeof window.ethereum !== 'undefined') {
       try {
@@ -190,26 +193,12 @@ document.addEventListener('DOMContentLoaded', () => {
       alert("MetaMask is not installed. Please install MetaMask to join the revolution.");
     }
   }
-
   const joinWalletButton = document.getElementById('joinWalletButton');
   if (joinWalletButton) {
     joinWalletButton.addEventListener('click', connectWallet);
   }
 
-  // Helper: Resolve ENS Name
-  async function resolveENS(ensName) {
-    try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const resolvedAddress = await provider.resolveName(ensName);
-      console.log("Resolved ENS Address:", resolvedAddress);
-      return resolvedAddress;
-    } catch (error) {
-      console.error("ENS resolution failed:", error);
-      return null;
-    }
-  }
-
-  // Donation Integration: Use custom donation input if provided, else use preset radio buttons
+  // Donation Integration
   const donateButton = document.getElementById('donateButton');
   if (donateButton) {
     donateButton.addEventListener('click', async () => {
@@ -217,16 +206,11 @@ document.addEventListener('DOMContentLoaded', () => {
         alert("Please connect your wallet first.");
         return;
       }
-
-      // Check if ethers.js is available
       if (typeof ethers === 'undefined') {
         alert("Ethers.js library is not loaded. Please check your network connection and script inclusion.");
         return;
       }
-
-      // Get donation amount from custom input
       let donationAmountEth = parseFloat(document.getElementById('customDonation')?.value) || null;
-      // If no custom donation provided, check preset radio buttons
       if (!donationAmountEth) {
         const donationRadios = document.getElementsByName('donationAmount');
         Array.from(donationRadios).forEach(radio => {
@@ -238,23 +222,19 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
       try {
-        // Convert ETH to Wei using ethers.js
         const donationAmountWei = ethers.utils.parseEther(donationAmountEth.toString());
-        
-        // Use the donation address (replace with ENS resolution if needed)
         const donationAddress = "0xc0C2196bBa2ac923564DBa39eb61A170d66620b1";
         if (!donationAddress) {
           alert("Failed to resolve donation address. Please try again later.");
           return;
         }
-        
         const accounts = await window.ethereum.request({ method: 'eth_accounts' });
         const fromAddress = accounts[0];
         const txParams = {
           from: fromAddress,
           to: donationAddress,
-          value: donationAmountWei.toHexString(), // Convert to hex string for MetaMask
-          gas: ethers.utils.hexlify(21000) // Convert gas limit to a hex string
+          value: donationAmountWei.toHexString(),
+          gas: ethers.utils.hexlify(21000)
         };
         const txHash = await window.ethereum.request({
           method: 'eth_sendTransaction',
@@ -268,9 +248,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Dummy Dashboard Update (simulate blockchain integration)
+  // Dummy Dashboard Update
   function updateDashboard() {
-    // In a real app, replace with actual API calls or blockchain queries.
     const napStats = document.getElementById('napStats');
     const dummyData = {
       totalNaps: 42,
@@ -284,7 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
   }
 
-  // Contact Form Submission: Construct a mailto link.
+  // Contact Form Submission
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
     contactForm.addEventListener('submit', function (e) {
@@ -300,16 +279,12 @@ document.addEventListener('DOMContentLoaded', () => {
         recipient = "chillbert@lazyllama.co";
       }
       const subject = encodeURIComponent("LazyLlama Inquiry (" + inquiryType + ")");
-      const body = encodeURIComponent(
-        "Name: " + name + "\n" +
-        "Email: " + email + "\n\n" +
-        message
-      );
+      const body = encodeURIComponent("Name: " + name + "\n" + "Email: " + email + "\n\n" + message);
       window.location.href = "mailto:" + recipient + "?subject=" + subject + "&body=" + body;
     });
   }
 
-  // Feedback Submission: Handle thumbs up/down and comment.
+  // Feedback Submission
   const thumbsUp = document.getElementById('thumbsUp');
   const thumbsDown = document.getElementById('thumbsDown');
   const submitFeedback = document.getElementById('submitFeedback');
@@ -351,6 +326,43 @@ document.addEventListener('DOMContentLoaded', () => {
       thumbsDown.classList.remove('selected');
       thumbsUp.setAttribute('aria-pressed', 'false');
       thumbsDown.setAttribute('aria-pressed', 'false');
+
+      // High-five overlay animation
+      const highFiveOverlay = document.getElementById('highFiveOverlay');
+      highFiveOverlay.classList.remove('hidden');
+      setTimeout(() => {
+        highFiveOverlay.classList.add('hidden');
+      }, 2000);
+    });
+  }
+
+  // Dynamic Time-Based Greeting
+  const greetingEl = document.getElementById('greeting');
+  if (greetingEl) {
+    const now = new Date();
+    const hour = now.getHours();
+    let greetingText = "";
+    if (hour < 12) {
+      greetingText = "Good Morning, Beautiful!";
+    } else if (hour < 18) {
+      greetingText = "Good Afternoon, Beautiful!";
+    } else {
+      greetingText = "Good Evening, Beautiful!";
+    }
+    greetingEl.textContent = greetingText;
+  }
+
+  // Disclaimer Modal: Show disclaimer popup when clicking disclaimer link
+  const disclaimerLink = document.getElementById('disclaimerLink');
+  const disclaimerModal = document.getElementById('disclaimerModal');
+  const disclaimerClose = document.getElementById('disclaimerClose');
+  if (disclaimerLink && disclaimerModal && disclaimerClose) {
+    disclaimerLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      disclaimerModal.classList.remove('hidden');
+    });
+    disclaimerClose.addEventListener('click', () => {
+      disclaimerModal.classList.add('hidden');
     });
   }
 });

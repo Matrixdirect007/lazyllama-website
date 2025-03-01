@@ -2,40 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="description" content="LazyLlama Movement – Nap Hard, Laugh Harder. Join our chill revolution where every snooze earns you Chillaxium." />
-  <meta name="keywords" content="LazyLlama, Nap Revolution, Chill, Crypto, MetaMask, Entertainment, Humor" />
+  <meta name="description" content="LazyLlama Movement – Nap Hard, Laugh Harder. Join our chill revolution where every snooze earns you Chillaxium and a hearty laugh." />
+  <meta name="keywords" content="LazyLlama, Nap Revolution, Chill, Crypto, MetaMask, Humor, Laugh, Naps" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="index, follow" />
   <meta name="author" content="LazyLlama Movement" />
   <meta property="og:url" content="https://www.lazyllama.com" />
   <meta property="og:type" content="website" />
   <meta name="twitter:site" content="@Lazy_Chillbert" />
-  
-  <!-- Open Graph / Twitter -->
   <meta property="og:title" content="LazyLlama – Nap Hard, Laugh Harder" />
-  <meta property="og:description" content="Join LazyLlama and start earning Chillaxium with every power nap you take. Let’s get lazy – and rich – together!" />
+  <meta property="og:description" content="Join LazyLlama and start earning Chillaxium with every power nap you take. Let’s get lazy – and laugh out loud – together!" />
   <meta property="og:image" content="assets/images/homepage/hero-llama.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  
   <title>LazyLlama Movement – Nap Hard, Laugh Harder</title>
 
-    <!-- 
-    Favicon References 
-    1. .ico format (classic)
-    2. Multiple PNG icons for various sizes (optional, modern approach)
-  -->
+  <!-- Favicon References -->
   <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="96x96" href="assets/images/favicon-96x96.png">
 
-  <!-- Google Tag (gtag.js) -->
+  <!-- Google Tag Manager -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-CPNKP17DFZ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-CPNKP17DFZ');
   </script>
   
@@ -64,10 +56,10 @@
   <!-- Content Security Policy -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.countapi.xyz;" />
   
-  <!-- Load ethers.js first -->
+  <!-- Load ethers.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.1/ethers.umd.min.js" type="application/javascript" crossorigin="anonymous"></script>
   
-  <!-- Then load your custom script -->
+  <!-- Custom Script (deferred for async non-blocking behavior) -->
   <script src="assets/js/script.js" defer></script>
 </head>
 <body>
@@ -82,13 +74,13 @@
         <ul class="nav-links">
           <li><a href="#home" class="active">Home</a></li>
           <li><a href="#about">About</a></li>
+          <li><a href="#humor">Humor</a></li>
           <li><a href="#how-it-works">How It Works</a></li>
           <li><a href="#faq">FAQ</a></li>
           <li><a href="#more">More</a></li>
           <li><a href="#join">Join</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
-        <!-- Menu toggle displays the word "Menu" -->
         <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
       </div>
     </nav>
@@ -97,26 +89,47 @@
   <!-- Main Content -->
   <main id="main" role="main">
     <!-- Home Section -->
-    <section id="home" class="active">
-      <h1>Hey there, Beautiful!</h1>
+    <section id="home" class="active humor-first">
+      <!-- Emphasize Humor Before Visual Design -->
+      <h1 id="greeting">Welcome to LazyLlama – Where Humor Comes Before (and Inspires) Design!</h1>
       <figure class="image-wrapper">
-        <img src="assets/images/homepage/hero-llama.webp" alt="A relaxed llama on a cloud, illustrated in pop-art style" loading="lazy" />
+        <img src="assets/images/homepage/hero-llama.webp" alt="A relaxed llama lounging on a cloud with a cheeky smile" loading="lazy" />
       </figure>
       <div class="text-content">
         <p>
-          Welcome to LazyLlama – where we turn napping into an art form and laziness into a lifestyle. Ready to ditch stress, embrace your inner couch potato, and maybe fall in love with doing nothing?
+          Here at LazyLlama, we believe in taking naps, cracking jokes, and turning laziness into an art form. Get ready to laugh hard and nap harder!
         </p>
         <p>Visitor Count: <span id="visitCounter" aria-live="polite">Loading...</span></p>
       </div>
       <div id="feedbackSection">
-        <h3>Leave Your Feedback</h3>
+        <h3>Leave Your Feedback (with a side of chuckles)</h3>
         <p>Thumbs up or down, and drop your funniest quip:</p>
-        <button id="thumbsUp" class="cta-button" aria-pressed="false" aria-label="Thumbs Up">👍</button>
-        <button id="thumbsDown" class="cta-button" aria-pressed="false" aria-label="Thumbs Down">👎</button>
+        <button id="thumbsUp" class="cta-button" aria-pressed="false" aria-label="Thumbs Up – Give us a laugh!">👍</button>
+        <button id="thumbsDown" class="cta-button" aria-pressed="false" aria-label="Thumbs Down – Not funny?">👎</button>
         <br />
         <textarea id="comment" placeholder="Share your hilarious thoughts..." rows="3" aria-label="Your feedback"></textarea>
         <br />
-        <button id="submitFeedback" class="cta-button" aria-label="Submit Feedback">Submit Feedback</button>
+        <button id="submitFeedback" class="cta-button" aria-label="Submit Feedback with a Smile">Submit Feedback</button>
+      </div>
+    </section>
+    
+    <!-- Expanded Humor Section -->
+    <section id="humor">
+      <h2>Humor – The Heart of Our Movement</h2>
+      <div class="text-content">
+        <p>
+          Welcome to the funny bone of LazyLlama! Here are some fun facts and quirky anecdotes about our revolution:
+        </p>
+        <ul>
+          <li><strong>Fun Fact #1:</strong> Chillbert, our fearless leader, once tried negotiating with a llama for a power nap. Legend has it the llama responded with a high-five – proving that even animals know the value of a good snooze!</li>
+          <li><strong>Fun Fact #2:</strong> The LazyLlama Movement was born when Chillbert discovered that hustle culture was overrated. Instead, he coined the term "Chillaxium" – digital currency earned solely by napping. Talk about earning your rest!</li>
+          <li><strong>Fun Fact #3:</strong> Chillbert's first job was as a "nap consultant" at a tech firm. His idea? Replace stressful meetings with strategic nap sessions. The company never recovered from the sudden outbreak of yawns, but it sparked a movement!</li>
+          <li><strong>Life Story Nugget:</strong> After a particularly long board meeting, Chillbert famously declared, "If you can't beat 'em, nap 'em!" This hilarious outburst is now immortalized as the founding joke of our movement.</li>
+          <li><strong>Joke of the Day:</strong> Why did the llama join the revolution? Because it wanted to take a stand... right on a soft, fluffy cloud of naps!</li>
+        </ul>
+        <p>
+          Here, laughter is our currency and chill is our creed. We invite you to share your funniest stories, puns, or even an epic nap tale of your own!
+        </p>
       </div>
     </section>
     
@@ -127,7 +140,6 @@
         <figure class="image-wrapper">
           <img src="assets/images/sections/about-llama-guru.webp" alt="Llama depicted as a relaxed guru, sipping tea" loading="lazy" />
         </figure>
-        <!-- Using text-content for consistent wrapping -->
         <div class="text-content">
           <p>
             I ditched the rat race ages ago. I’m an expert in the fine art of doing nothing—with a smile and a wink. Join my hilarious journey where every snooze is celebrated.
@@ -141,29 +153,27 @@
           <div class="subsection">
             <h3>My Philosophy</h3>
             <p>
-              "Sleep first, questions later." I believe life’s too short for stress—so kick back, relax, and let the world do its thing.
+              "Sleep first, questions later." I believe life’s too short for stress—so kick back, relax, and let your inner comedian shine.
             </p>
           </div>
           <div class="subsection">
             <h3>My Llamas</h3>
             <p>
-              My furry overlord reminds me that laughter and a little laziness go a long way. He’s the boss—if only you’d listen!
+              My furry overlord reminds me daily that laughter and a little laziness are the keys to life. He’s the boss—if only you’d listen!
             </p>
           </div>
         </div>
       </div>
     </section>
     
-    <!-- How It Works Section (Tabbed with Placeholder Image) -->
+    <!-- How It Works Section -->
     <section id="how-it-works">
       <div class="container">
         <h2>How It Works – Your Guide to Lazy Excellence</h2>
         <p class="section-subtitle">Follow these simple steps and turn every snooze into Chillaxium!</p>
-        <!-- Placeholder image for How It Works -->
         <div class="how-image">
           <img src="assets/images/sections/how-it-works.webp" alt="How It Works placeholder image" />
         </div>
-        <!-- Tabbed interface for steps -->
         <div class="tabs">
           <ul class="tab-buttons">
             <li data-tab="step1" class="active">Chill</li>
@@ -196,11 +206,10 @@
       </div>
     </section>
     
-    <!-- FAQ Section with Image Placeholder and Search -->
+    <!-- FAQ Section (All 20 Items) -->
     <section id="faq">
       <h2>FAQ – Silly Answers to Wake You Up</h2>
       <p class="section-subtitle">Got questions? We’ve got the answers—straight from our nap masters!</p>
-      <!-- Image placeholder in FAQ section -->
       <div class="faq-image">
         <img src="assets/images/sections/FAQ.webp" alt="FAQ placeholder image" />
       </div>
@@ -213,7 +222,7 @@
             <span class="arrow" aria-hidden="true">▶</span>
           </div>
           <div class="faq-answer">
-            <p>A: It’s a rebellion against hustle culture—where napping is the highest form of art and productivity is so last century.</p>
+            <p>A: It’s a rebellion against hustle culture—napping is the highest form of art here!</p>
           </div>
         </div>
         <!-- FAQ Item 2 -->
@@ -323,7 +332,7 @@
             <span class="arrow" aria-hidden="true">▶</span>
           </div>
           <div class="faq-answer">
-            <p>A: Simply tell them you’re pioneering “power napping” for creative breakthroughs. It might just catch on!</p>
+            <p>A: Just tell them you’re pioneering “power napping” for creative breakthroughs. It might just catch on!</p>
           </div>
         </div>
         <!-- FAQ Item 13 -->
@@ -409,23 +418,54 @@
       </div>
     </section>
     
-    <!-- More Section (includes Dashboard Block) -->
+    <!-- More Section (Reworked Like "How It Works") -->
     <section id="more">
-      <h2>More – Extra Ways to Embrace the Chill</h2>
-      <figure class="image-wrapper">
-        <img src="assets/images/sections/more-ways-to-chill.webp" alt="A playful illustration of a llama relaxing in a hammock" loading="lazy" />
-      </figure>
-      <div class="text-content">
-        <p>Explore even more fabulous ways to get your chill on:</p>
-        <a href="#nap-to-earn" class="cta-button">Nap-to-Earn</a>
-        <a href="#chill-currency" class="cta-button">Chill Currency</a>
-        <a href="#stake" class="cta-button">Stake</a>
-        <a href="#merchandise" class="cta-button">Merchandise</a>
-        <a href="#events" class="cta-button">Events</a>
-      </div>
-      <div class="dashboard-more text-content">
-        <h3>Your Nap Statistics</h3>
-        <p id="napStats">Loading your nap stats...</p>
+      <div class="container">
+        <h2>Discover More Ways to Chill</h2>
+        <p class="section-subtitle">Explore our exclusive features designed to maximize your relaxation.</p>
+        <div class="more-tabs">
+          <ul class="tab-buttons">
+            <li data-tab="more-nap" class="active">Nap-to-Earn</li>
+            <li data-tab="more-chill">Chill Currency</li>
+            <li data-tab="more-stake">Stake</li>
+            <li data-tab="more-merch">Merchandise</li>
+            <li data-tab="more-events">Events</li>
+          </ul>
+          <div class="tab-content active" id="more-nap">
+            <img src="assets/images/sections/nap-to-earn.webp" alt="Nap-to-Earn" loading="lazy" />
+            <h3>Nap-to-Earn</h3>
+            <p>Turn your snooze into rewards and digital dough.</p>
+            <a href="#nap-to-earn" class="cta-button">Learn More</a>
+          </div>
+          <div class="tab-content" id="more-chill">
+            <img src="assets/images/sections/chill-currency.webp" alt="Chill Currency" loading="lazy" />
+            <h3>Chill Currency</h3>
+            <p>Earn digital coins with every power nap.</p>
+            <a href="#chill-currency" class="cta-button">Learn More</a>
+          </div>
+          <div class="tab-content" id="more-stake">
+            <img src="assets/images/sections/staking.webp" alt="Stake" loading="lazy" />
+            <h3>Stake</h3>
+            <p>Invest in your chill for extra rewards.</p>
+            <a href="#stake" class="cta-button">Learn More</a>
+          </div>
+          <div class="tab-content" id="more-merch">
+            <img src="assets/images/sections/merchandise.webp" alt="Merchandise" loading="lazy" />
+            <h3>Merchandise</h3>
+            <p>Wear your chill with exclusive LazyLlama swag.</p>
+            <a href="#merchandise" class="cta-button">Shop Now</a>
+          </div>
+          <div class="tab-content" id="more-events">
+            <img src="assets/images/sections/nap_off.webp" alt="Events" loading="lazy" />
+            <h3>Events</h3>
+            <p>Join our chill events and nap competitions.</p>
+            <a href="#events" class="cta-button">RSVP Now</a>
+          </div>
+        </div>
+        <div class="dashboard-more text-content">
+          <h3>Your Nap Statistics</h3>
+          <p id="napStats">Loading your nap stats...</p>
+        </div>
       </div>
     </section>
     
@@ -531,8 +571,8 @@
         </div>
         <div class="event-card">
           <figure class="image-wrapper">
-            <img src="assets/images/sections/chill_spill.webp" alt="Chill & Spill – Virtual Hangout" loading="lazy" />
-            <figcaption>Chill & Spill</figcaption>
+            <img src="assets/images/sections/chill_spill.webp" alt="Chill &amp; Spill – Virtual Hangout" loading="lazy" />
+            <figcaption>Chill &amp; Spill</figcaption>
           </figure>
           <div class="text-content">
             <p><em>April 8, 2025</em></p>
@@ -637,19 +677,36 @@
     </section>
   </main>
   
-  <!-- Back to Top Button -->
+<!-- Back to Top Button -->
   <button id="backToTop" title="Back to Top" aria-label="Back to Top">↑</button>
   
   <!-- Modal Popup for "Under Development" Messages -->
-  <div id="modalPopup" class="modal hidden">
+  <div id="modalPopup" class="modal hidden" role="dialog" aria-modal="true">
     <div class="modal-content">
       <p id="modalMessage"></p>
       <button id="modalClose" class="cta-button">Close</button>
     </div>
   </div>
+
+  <!-- High-Five Overlay for Feedback -->
+  <div id="highFiveOverlay" class="high-five hidden">High-five!</div>
+
+  <!-- Disclaimer Modal (funny tone) -->
+  <div id="disclaimerModal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <h3>Disclaimer</h3>
+      <p>
+        Warning: This site is 100% dedicated to fun, naps, and laughs! No professional advice here—just cheeky llama humor and a friendly reminder that too many naps might leave you giggling uncontrollably. Enjoy responsibly, and keep your llama spirit alive!
+      </p>
+      <button id="disclaimerClose" class="cta-button">Got it, I'm chill!</button>
+    </div>
+  </div>
+
+  <!-- Footer with Disclaimer Link -->
+  <footer>
+    <p><button id="disclaimerLink" class="cta-button" aria-label="View Disclaimer">View Disclaimer</button></p>
+  </footer>
 </body>
 </html>
-
-
 
 
